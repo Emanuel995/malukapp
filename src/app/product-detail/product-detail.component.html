@@ -1,0 +1,72 @@
+<!-- Formulario moderno sin Bootstrap -->
+<div *ngIf="product; else notFound" class="product-detail-container">
+  <div class="product-card">
+    <h3 class="form-title">{{ mode=='INS' ? 'Crear nuevo producto' : mode=='DSP' ? 'Detalle del Producto' : 'Editar Producto'}}</h3>
+    
+    <form (ngSubmit)="save()" class="product-form">
+      <div *ngIf="mode!='INS'" class="form-group">
+        <label class="form-label">Identificador</label>
+        <input class="form-control" [(ngModel)]="product.id" name="id" readonly>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Nombre</label>
+        <input class="form-control" [(ngModel)]="product.name" name="name" [readonly]="!editable">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Descripción</label>
+        <textarea class="form-control textarea-field" [(ngModel)]="product.description" name="description" rows="3" [readonly]="!editable"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Precio</label>
+          <input class="form-control" [(ngModel)]="product.price" name="price" [readonly]="!editable">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Stock</label>
+          <input class="form-control" [(ngModel)]="product.stock" name="stock" [readonly]="!editable">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Categoria</label>
+        <select class="form-select" [(ngModel)]="product.category_id" name="category" [disabled]="!editable">
+          <option *ngIf="mode =='INS'" value="0" selected>Seleccionar categoría</option>
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Unidad de Medida</label>
+        <select class="form-select" [(ngModel)]="product.unit_id" name="unit" [disabled]="!editable">
+          <option *ngIf="mode =='INS'" value="0" selected>Seleccionar Unidad de Medida</option>
+          <option *ngFor="let unit of units" [value]="unit.unit_id">
+            {{ unit.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <a class="btn btn-outline-secondary" routerLink="/productos">
+          ← Volver
+        </a>
+        <button type="submit" class="btn btn-success" [disabled]="mode=='DSP'">
+          💾 Confirmar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="error-message">
+    <h3>⚠️ Producto no encontrado</h3>
+    <p>El producto que buscas no existe o ha sido eliminado.</p>
+    <a class="btn btn-primary" routerLink="/productos">Volver a productos</a>
+  </div>
+</ng-template>

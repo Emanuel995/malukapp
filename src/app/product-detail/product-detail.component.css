@@ -1,0 +1,122 @@
+/* Estilos modernos para el detalle de producto */
+.product-detail-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  border: 1px solid oklch(0.69 0 0);
+}
+
+.form-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: oklch(0 0 0);
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: oklch(0.2 0 0);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-control,
+.form-select {
+  padding: 0.75rem;
+  border: 1px solid oklch(0.69 0 0);
+  border-radius: 0.375rem;
+  background-color: white;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: oklch(0.69 0.15 25);
+  box-shadow: 0 0 0 3px oklch(0.69 0.15 25 / 0.1);
+}
+
+.form-control:read-only,
+.form-select:disabled {
+  background-color: oklch(0.95 0 0);
+  color: oklch(0.4 0 0);
+  cursor: not-allowed;
+}
+
+.textarea-field {
+  resize: vertical;
+  min-height: 100px;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid oklch(0.9 0 0);
+}
+
+.error-message {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: oklch(0.98 0.05 25);
+  border: 1px solid oklch(0.7 0.2 45);
+  border-radius: 0.75rem;
+}
+
+.error-message h3 {
+  color: oklch(0.7 0.2 45);
+  margin: 0 0 1rem 0;
+}
+
+.error-message p {
+  color: oklch(0.4 0 0);
+  margin: 0 0 1.5rem 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .product-card {
+    padding: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}
