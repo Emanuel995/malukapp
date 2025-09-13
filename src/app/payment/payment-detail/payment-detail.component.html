@@ -1,0 +1,32 @@
+
+<!-- Formulario moderno sin Bootstrap -->
+<div *ngIf="payment; else notFound" class="detail-container">
+  <app-alert [isError]="isError" [message]="message"></app-alert>
+  <div class="card">
+    <h3 class="form-title">{{ mode=='INS' ? 'Crear nueva forma de pago' : mode=='DSP' ? 'Detalle de la forma de pago' : 'Editar forma de pago'}}</h3>
+    
+    <form (ngSubmit)="save()" class="form">
+      <div *ngIf="mode!='INS'" class="form-group">
+        <label class="form-label">Identificador</label>
+        <input class="form-control" [(ngModel)]="payment.id" name="id" readonly>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Nombre</label>
+        <input class="form-control" [(ngModel)]="payment.name" name="name" [readonly]="!editable">
+      </div>
+
+      <div class="form-actions">
+        <a class="btn btn-outline-secondary" (click)="back()">Volver</a>
+        <button type="submit" class="btn btn-outline-success" [disabled]="mode=='DSP'"><i class="bi bi-floppy"></i>&nbsp; Confirmar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="error-message">
+    <h3>⚠️ Categoria no encontrado</h3>
+    <p>La categoria que buscas no existe o ha sido eliminado.</p>
+  </div>
+</ng-template>

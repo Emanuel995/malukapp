@@ -6,16 +6,19 @@
     <div class="container-entity">
         <div class="container-entity-item"(click)="setView(ViewOptions.Categories)" [class.active]="view === 'categories'"><i class="bi bi-tags"></i> Categorias </div>
         <div class="container-entity-item"(click)="setView(ViewOptions.Units)" [class.active]="view === 'units'"><i class="bi bi-flask"></i> Unidades </div>
-        <div class="container-entity-item"(click)="setView(ViewOptions.Payment)" [class.active]="view === 'payment'"><i class="bi bi-cash-coin"></i> Formas de Pago</div>
+        <div class="container-entity-item"(click)="setView(ViewOptions.Payments)" [class.active]="view === 'payments'"><i class="bi bi-cash-coin"></i> Formas de Pago</div>
         <div class="container-entity-item"(click)="setView(ViewOptions.Stock)" [class.active]="view === 'stock'"><i class="bi bi-tools"></i> Stock</div>
         <div class="container-entity-item"(click)="setView(ViewOptions.Provider)" [class.active]="view === 'provider'"><i class="bi bi-truck"></i> Proveedores</div>
     </div>
     <div class="container-component">
-        <div class="container-entity-comp" *ngIf="view === 'categories'">
+        <div class="container-entity-comp" *ngIf="view === ViewOptions.Categories">
           <app-category></app-category>
         </div>
-        <div class="container-entity-comp" *ngIf="view === 'units'">
+        <div class="container-entity-comp" *ngIf="view === ViewOptions.Units">
           <app-units></app-units>
+        </div>
+        <div class="container-entity-comp" *ngIf="view === ViewOptions.Payments">
+          <app-payment></app-payment>
         </div>
         <div class="container-entity-comp" *ngIf="view === 'stock'">Componente Stock</div>
     </div>

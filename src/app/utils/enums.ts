@@ -3,7 +3,7 @@
     Categories: 'categories',
     Units: 'units',
     Stock: 'stock',
-    Payment: 'payment',
+    Payments: 'payments',
     Provider: 'provider',
   } as const;
   export type ViewOption = typeof ViewOptions[keyof typeof ViewOptions];

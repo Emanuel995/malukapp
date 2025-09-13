@@ -8,11 +8,12 @@ import { UnitService } from '../services/unit.service';
 import { UnitsComponent } from "../units/units.component";
 import { CategoryComponent } from "../category/category.component";
 import { ViewOption, ViewOptions } from '../utils/enums';
+import { PaymentComponent } from "../payment/payment.component";
 
 @Component({
   selector: 'app-management',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, UnitsComponent, CategoryComponent],
+  imports: [CommonModule, RouterModule, FormsModule, UnitsComponent, CategoryComponent, PaymentComponent],
   templateUrl: './management.component.html',
   styleUrl: './management.component.css'
 })

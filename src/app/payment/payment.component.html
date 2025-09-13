@@ -1,0 +1,35 @@
+<div *ngIf="mode == 'INS' || mode == 'UPD'">
+  <app-payment-detail [paymentSelected]="paymentSelected" [(mode)]="mode" (modeChange)="onModeChanged($event)"></app-payment-detail>
+</div>
+<div *ngIf="mode == 'LIST'" class="container">
+  <div class="header">
+    <h3 class="subtitle">Formas de Pago</h3>
+    <button class="btn btn-outline-success" (click)="create()">
+      <i class="bi bi-plus-circle"></i> 
+    </button>
+  </div>
+  <app-alert [isError]="isError" [message]="message"></app-alert>
+  <div class="table-container">
+    <table class="modern-table">
+      <thead class="table-header">
+        <tr>
+          <th class="actions-column">Acciones</th>
+          <th>#</th>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of payments" class="table-row">
+          <td class="actions-cell">
+            <a class="action-btn action-btn-edit" (click)="edit(payment)"><i class="bi bi-pencil-square"></i></a> 
+            <a class="action-btn action-btn-del" ><i class="bi bi-x-octagon"></i></a> 
+          </td>
+          <td>{{ payment.id }}</td>
+          <td class="product-name">{{ payment.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+</div>
+
