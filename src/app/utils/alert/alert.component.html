@@ -1,0 +1,5 @@
+<div *ngIf="message" class="card">
+    <div [ngClass]="isError ? 'error' : 'success'">
+        {{ message }}
+    </div>
+</div>

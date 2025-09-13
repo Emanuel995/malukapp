@@ -1,9 +1,9 @@
 <!-- Formulario moderno sin Bootstrap -->
-<div *ngIf="product; else notFound" class="product-detail-container">
-  <div class="product-card">
+<div *ngIf="product; else notFound" class="detail-container">
+  <div class="card">
     <h3 class="form-title">{{ mode=='INS' ? 'Crear nuevo producto' : mode=='DSP' ? 'Detalle del Producto' : 'Editar Producto'}}</h3>
     
-    <form (ngSubmit)="save()" class="product-form">
+    <form (ngSubmit)="save()" class="form">
       <div *ngIf="mode!='INS'" class="form-group">
         <label class="form-label">Identificador</label>
         <input class="form-control" [(ngModel)]="product.id" name="id" readonly>
@@ -45,7 +45,7 @@
         <label class="form-label">Unidad de Medida</label>
         <select class="form-select" [(ngModel)]="product.unit_id" name="unit" [disabled]="!editable">
           <option *ngIf="mode =='INS'" value="0" selected>Seleccionar Unidad de Medida</option>
-          <option *ngFor="let unit of units" [value]="unit.unit_id">
+          <option *ngFor="let unit of units" [value]="unit.id">
             {{ unit.name }}
           </option>
         </select>

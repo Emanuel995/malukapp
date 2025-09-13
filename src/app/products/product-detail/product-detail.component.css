@@ -1,11 +1,11 @@
 /* Estilos modernos para el detalle de producto */
-.product-detail-container {
+.detail-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-.product-card {
+.card {
   background-color: white;
   border-radius: 0.75rem;
   padding: 2rem;
@@ -21,7 +21,7 @@
   text-align: center;
 }
 
-.product-form {
+.form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -108,7 +108,7 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .product-card {
+  .card {
     padding: 1.5rem;
   }
 

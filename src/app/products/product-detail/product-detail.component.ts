@@ -2,9 +2,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ProductService, Product } from '../services/product.service';
-import { CategoryService, Category } from '../services/category.service';
-import { Unit, UnitService } from '../services/unit.service';
+import { ProductService, Product } from '../../services/product.service';
+import { CategoryService, Category } from '../../services/category.service';
+import { Unit, UnitService } from '../../services/unit.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -32,7 +32,7 @@ export class ProductDetailComponent {
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(categories => {this.categories = categories});
-    this.units = this.unitService.getUnits();
+    this.unitService.getUnits().subscribe(units => {this.units = units});
     this.route.url.subscribe(segments => {
       if (segments.some(seg => seg.path === 'new')) {
         this.mode ='INS';

@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="header">
+    <h2 class="title">Gestión</h2>
+  </div>
+  <div class="container-main">
+    <div class="container-entity">
+        <div class="container-entity-item"(click)="setView(ViewOptions.Categories)" [class.active]="view === 'categories'"><i class="bi bi-tags"></i> Categorias </div>
+        <div class="container-entity-item"(click)="setView(ViewOptions.Units)" [class.active]="view === 'units'"><i class="bi bi-flask"></i> Unidades </div>
+        <div class="container-entity-item"(click)="setView(ViewOptions.Payment)" [class.active]="view === 'payment'"><i class="bi bi-cash-coin"></i> Formas de Pago</div>
+        <div class="container-entity-item"(click)="setView(ViewOptions.Stock)" [class.active]="view === 'stock'"><i class="bi bi-tools"></i> Stock</div>
+        <div class="container-entity-item"(click)="setView(ViewOptions.Provider)" [class.active]="view === 'provider'"><i class="bi bi-truck"></i> Proveedores</div>
+    </div>
+    <div class="container-component">
+        <div class="container-entity-comp" *ngIf="view === 'categories'">
+          <app-category></app-category>
+        </div>
+        <div class="container-entity-comp" *ngIf="view === 'units'">
+          <app-units></app-units>
+        </div>
+        <div class="container-entity-comp" *ngIf="view === 'stock'">Componente Stock</div>
+    </div>
+  </div>
+</div>

@@ -32,6 +32,8 @@ export class ProductsComponent implements OnInit{
       this.products = products;
       this.filterProducts = products;
     });
+    
+    
   }
 
   search():void{

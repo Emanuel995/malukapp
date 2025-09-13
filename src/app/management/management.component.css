@@ -1,0 +1,66 @@
+.container-main{
+    display: flex;
+    margin: 1rem 0rem 0rem 0rem;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 1rem;
+}
+.container-entity{
+    width: 20%;
+    margin: 0rem;
+    padding: 0rem;
+}
+.container-entity-item{
+    margin: 1rem 0rem 0rem 0rem;
+    padding: 1rem 0rem 1rem 0rem;
+    font-weight: 500;
+    text-align: center;
+    color: oklch(33.68% 0.00004 271.152);
+    text-decoration: none;
+}
+.container-entity-item.active {
+  color: oklch(0.69 0.15 25);
+  background-color: oklch(0.69 0.15 25 / 0.1);
+  font-weight: 600;
+  border-radius: 1rem;
+  border-color: oklch(0.69 0.15 25);
+  border-width: 1px;
+  border-style: solid;
+  cursor: default;
+}
+
+.container-entity-item:hover:not(.active) {
+    border-width: 0px;
+    border-style: solid;
+    border-radius: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    color: var(--accent-coral);
+    background-color: var(--accent-coralhover);
+    font-weight: 600;
+    cursor: pointer;
+}
+.container-component{
+    width: 70%;
+}
+.container-entity-comp{
+    margin: 0rem;
+    padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .container-main {
+    flex-direction: column; /* apilar verticalmente */
+    align-items: stretch;
+  }
+
+  .container-entity,
+  .container-component {
+    width: 100%; /* ocupan todo el ancho */
+  }
+
+  .container-entity-item {
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+  }
+}

@@ -7,13 +7,17 @@
   --accent-orange: oklch(77.573% 0.13081 54.62); /* Naranja vibrante */
   --accent-coralhover: oklch(95.82% 0.01758 25.772);
   --filter-text :rgb(57, 57, 57);
+  --accent-red: oklch(55.257% 0.22602 29.15);;
 }
 body {
   font-family: 'Montserrat', sans-serif !important;
+  padding: 0rem;
+  margin: 0rem;
+  background-color: white;
 }
 /*Generales*/
 .container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -28,6 +32,12 @@ body {
   font-weight: 700;
   color: oklch(0 0 0);
   margin: 0;
+}
+.subtitle{
+  color: var(--accent-coral);
+  font-size: 1.5rem;
+  margin: 0;
+  align-content: center;
 }
 .search-form {
   margin-left: 0.5rem;
@@ -184,18 +194,18 @@ body {
 }
 
 .action-btn-del {
-  background-color: oklch(0.5 0.2 0);
-  color: white;
-  border: 1px solid oklch(0.5 0.2 0);
+  background-color: var(--bg-card-color);
+  color: var(--accent-red);
+  border: 1px solid var(--border-color);
   border-radius: 0.375rem;
   padding: 0.5rem 0.75rem;
   transition: all 0.2s ease-in-out;
 }
 
 .action-btn-del:hover {
-  background-color: oklch(0.4 0.25 0);
+  background-color: var(--accent-red);
   color: white;
-  border-color: oklch(0.4 0.25 0);
+  border-color: var(--accent-red);
   transform: translateY(-1px);
 }
 
@@ -309,5 +319,4 @@ body {
   background-color: var(--bg-card-color);
   color: oklch(0.2 0 0);
 }
-
 
