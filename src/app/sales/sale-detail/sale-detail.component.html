@@ -1,0 +1,102 @@
+<!-- Formulario moderno sin Bootstrap -->
+<div *ngIf="sale; else notFound" class="detail-container">
+  <app-alert [isError]="isError" [message]="message"></app-alert>
+  <div class="card">
+    <h3 class="form-title">{{ mode=='INS' ? 'Crear nueva Venta' : mode=='DSP' ? 'Detalle de la Venta' : 'Editar Venta'}}
+    </h3>
+
+    <form (ngSubmit)="save()" class="form">
+      <div class="form-row">
+        <div style="display: none;" *ngIf="mode!='INS'" class="form-group">
+          <label class="form-label">Identificador</label>
+          <input class="form-control" [(ngModel)]="sale.id" name="id" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fecha</label>
+          <input class="form-control" type="date" [(ngModel)]="date" name="date" [readonly]="!editable">
+          <input class="form-control" type="time" [(ngModel)]="time" name="time" [readonly]="!editable">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Forma de Pago</label>
+          <input class="form-control" [(ngModel)]="sale.payment_name" name="payment_name" [readonly]="!editable">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Estado</label>
+          <input class="form-control" [(ngModel)]="sale.state" name="state" [readonly]="!editable">
+        </div>
+      </div>
+      <table class="modern-table">
+        <thead class="table-header">
+          <tr class="">
+            <th style="display: none;">#</th>
+            <th></th>
+            <th>Producto</th>
+            <th class="price-header">Cantidad</th>
+            <th class="price-header">Precio Unit</th>
+            <th class="price-header">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items" class="table-row">
+            <td><a><i class="bi bi-trash3" (click)="removeProduct(item)"></i></a></td>
+            <td style="width: 5%; display: none;">{{item.product_id}}</td>
+            <td class="product-name">{{item.product_name}}</td>
+            <td class="cant-cell"><input class="form-control" type="number" name="quatity-{{item.product_id}}"
+                [(ngModel)]="item.quatity" (ngModelChange)="onQuantitychange(item)" min="0"></td>
+            <td class="price-cell">{{item.unit_price | currency:'$':'symbol':'1.2-2'}}</td>
+            <td class="price-cell">{{item.subtotal | currency:'$':'symbol':'1.2-2'}}</td>
+          </tr>
+        </tbody>
+        <tfoot class="table-header">
+          <tr class="">
+            <th colspan="4" class="price-header">Total</th>
+            <th colspan="1" class="price-cell">${{this.total | currency:'$':'symbol':'1.2-2'}}</th>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="form-suggest">
+        <div class="form-group-row" style="margin-bottom: 0rem;">
+          <div class="form-group-col input-product">
+            <label class="form-label">Agregar Producto </label>
+            <input class="form-control input-product" name="newProduct" type="text" [(ngModel)]="filter"
+              placeholder="Buscar..." (input)="onSearch()">
+          </div>
+          <div class="form-group-col">
+            <label class="form-label">Precio </label>
+            <input class="form-control" name="price" type="text" min="0" max="999999999" [value]="newProductPrice | currency:'$':'symbol':'1.2-2'" readonly>
+          </div>
+          <div class="form-group-col">
+            <label class="form-label">Cantidad </label>
+            <input class="form-control" name="quantity" type="number" min="0" max="999999" [(ngModel)]="newQuantity">
+          </div>
+          <div class="form-group-col">
+            <label class="form-label"> </label>
+            <a class="btn btn-outline-success" (click)="addProduct()"><i class="bi bi-plus-circle"></i></a>
+          </div>
+        </div>
+        <div class="form-group-row" style="margin-top: 0rem;">
+          <div class="form-group-col input-product">
+          <ul class="ul-suggest " *ngIf="suggestions.length>0">
+            <li class="li-suggest " *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
+              {{ suggestion.name }}
+            </li>
+          </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a class="btn btn-outline-secondary" (click)="back()">Volver</a>
+        <button type="submit" class="btn btn-outline-success" [disabled]="mode=='DSP'"><i
+            class="bi bi-floppy"></i>&nbsp; Confirmar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="error-message">
+    <h3>⚠️ Venta no encontrado</h3>
+    <p>La Venta que buscas no existe o ha sido eliminado.</p>
+  </div>
+</ng-template>

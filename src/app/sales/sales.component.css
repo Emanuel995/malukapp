@@ -1,0 +1,41 @@
+/* Estilos modernos para la página de productos */
+
+.product-name {
+  width: 30%;
+  font-weight: 500;
+  color: oklch(0.1 0 0);
+}
+
+.price-cell {
+  text-align: right;
+  font-weight: 600;
+  color: oklch(0.69 0.15 25);
+}
+
+.stock-cell {
+  text-align: right;
+  font-weight: 500;
+}
+
+
+/* Responsive design para tabla */
+@media (max-width: 768px) {
+  .search-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    max-width: none;
+  }
+
+  .modern-table {
+    font-size: 0.875rem;
+  }
+
+  .table-header th,
+  .table-row td {
+    padding: 0.75rem 0.5rem;
+  }
+}
+

@@ -1,1 +1,52 @@
-<p>Componente de Ventas</p>
+<!-- Layout moderno sin Bootstrap grid -->
+<div *ngIf="mode == 'INS' || mode == 'UPD' || mode == 'DSP'">
+  <app-sale-detail [saleSelected]="saleSelected" [(mode)]="mode" (modeChange)="onModeChanged($event)"></app-sale-detail>
+</div>
+<div *ngIf="mode == 'LIST'" class="container">
+  <div class="header">
+    <h2 class="title">Ventas</h2>
+    <button class="btn btn-outline-success" (click)="create()">
+      <i class="bi bi-plus-circle"></i>
+    </button>
+  </div>
+
+  <form class="search-form" (ngSubmit)="search()">
+    <div class="search-controls">
+    </div>
+    <div><button class="btn btn-search btn-outline-primary" type="submit"><i class="bi bi-search"></i></button></div>
+  </form>
+
+
+  <div class="table-container">
+    <table class="modern-table">
+      <thead class="table-header">
+        <tr>
+          <th class="actions-column">Acciones</th>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Forma de Pago</th>
+          <th>Estado</th>
+          <th style="text-align: right;">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sale of sales" class="table-row">
+          <td class="actions-cell">
+            <a class="action-btn action-btn-view" (click)="view(sale)"><i class="bi bi-eye"></i></a>
+            <a class="action-btn action-btn-edit" (click)="edit(sale)"><i class="bi bi-pencil-square"></i></a>
+          </td>
+          <td>{{ sale.id }}</td>
+          <td class="product-name">{{ sale.date | date:'short'}}</td>
+          <td>{{ sale.payment_name }}</td>
+          <td>{{ sale.state ? sale.state : 'APROBADO' }}</td>
+          <td class="price-cell">${{ sale.total }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="table-pagination">
+    <button class="btn-outline-success"><i class="bi bi-arrow-left-circle"></i></button>
+    <button class="btn-outline-success"><a>#</a></button>
+    <button class="btn-outline-success"><i class="bi bi-arrow-right-circle"></i></button>
+  </div>
+</div>
