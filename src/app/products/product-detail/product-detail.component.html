@@ -1,5 +1,6 @@
 <!-- Formulario moderno sin Bootstrap -->
 <div *ngIf="product; else notFound" class="detail-container">
+  <app-alert [isError]="isError" [message]="message"></app-alert>
   <div class="card">
     <h3 class="form-title">{{ mode=='INS' ? 'Crear nuevo producto' : mode=='DSP' ? 'Detalle del Producto' : 'Editar Producto'}}</h3>
     
@@ -53,10 +54,10 @@
 
       <div class="form-actions">
         <a class="btn btn-outline-secondary" routerLink="/productos">
-          ← Volver
+          Volver
         </a>
-        <button type="submit" class="btn btn-success" [disabled]="mode=='DSP'">
-          💾 Confirmar
+        <button *ngIf="editable" type="submit" class="btn btn-success" [disabled]="mode=='DSP'">
+          Confirmar
         </button>
       </div>
     </form>

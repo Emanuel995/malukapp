@@ -40,8 +40,10 @@
       <tbody>
         <tr *ngFor="let product of filterProducts" class="table-row">
           <td class="actions-cell">
-            <a class="action-btn action-btn-view" [routerLink]="['/productos','view', product.id]"><i class="bi bi-eye"></i></a> 
-            <a class="action-btn action-btn-edit" [routerLink]="['/productos','edit', product.id]"><i class="bi bi-pencil-square"></i></a> 
+            <button class="action-btn action-btn-view" [routerLink]="['/productos','view', product.id]"><i class="bi bi-eye"></i></button> 
+            <button class="action-btn action-btn-edit" [routerLink]="['/productos','edit', product.id]"><i class="bi bi-pencil-square"></i></button>
+            <button *ngIf="product.is_deleted" class="action-btn action-btn-play" (click)="activate(product)" ><i class="bi bi-play-fill"></i></button>
+            <button *ngIf="!product.is_deleted" class="action-btn action-btn-stop" (click)="deactivate(product)" ><i class="bi bi-stop-circle"></i></button>  
           </td>
           <td>{{ product.id }}</td>
           <td class="product-name">{{ product.name }}</td>

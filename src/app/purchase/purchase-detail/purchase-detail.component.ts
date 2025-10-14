@@ -1,21 +1,21 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product, ProductService, ProductFilter } from '../../services/product.service';
+import { Product, ProductFilter, ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SaleService, Sale, Items } from '../../services/sale.service';
 import { AlertComponent } from '../../utils/alert/alert.component';
-import { getDateFormatString, getStateOptions, StateOption, StatesPayment, MovementsType, MovementOption, getMovementOptions, getTimeFormatString } from '../../utils/enums';
+import { getDateFormatString,getTimeFormatString, getStateOptions, StateOption, StatesPayment, MovementsType, MovementOption, getMovementOptions } from '../../utils/enums';
 import { PaymentService, Payment } from '../../services/payment.service';
 
 @Component({
   standalone: true,
-  selector: 'app-sale-detail',
+  selector: 'app-purchase-detail',
   imports: [CommonModule, RouterModule, FormsModule, AlertComponent],
-  templateUrl: './sale-detail.component.html',
-  styleUrl: './sale-detail.component.css'
+  templateUrl: './purchase-detail.component.html',
+  styleUrl: './purchase-detail.component.css'
 })
-export class SaleDetailComponent {
+export class PurchaseDetailComponent {
   isError: boolean = false;
   message: string = '';
   editable: boolean = false;
@@ -49,13 +49,13 @@ export class SaleDetailComponent {
 
   ngOnInit(): void {
     this.sale = this.saleSelected;
-    this.filters.includeDeleted = true;
+    this.filters.includeDeleted=true;
     this.productService.getProducts(this.filters).subscribe(products => this.products = products);
     this.paymentService.getPayments().subscribe(payment => this.payments = payment);
     this.stateSelect = getStateOptions();
     this.movementsSelect = getMovementOptions();
-
-    this.editable = false;
+    
+     this.editable = false;
     if (this.mode == 'INS') {
       this.sale = {
         id: 0,
@@ -66,7 +66,7 @@ export class SaleDetailComponent {
         state_id: this.states.Confirmado,
         state_name:'',
         items: [],
-        kind_id:1,
+        kind_id:2,
         kind_name:''
       }
       this.sale.date = new Date(this.sale.date);
@@ -78,13 +78,14 @@ export class SaleDetailComponent {
         if (this.sale.date instanceof Date) {
           this.date = getDateFormatString(this.sale.date)
           this.time = getTimeFormatString(this.sale.date);
-        }   
+        }
         this.saleService.getSaleById(this.sale.id).subscribe(sale => {
-          this.items = sale.items;
+          this.items = sale.items;          
           this.setTotalSale();
-        })
+        })        
       }
     }
+
     if (this.mode == 'INS' || this.mode == 'UPD') {
       this.editable = true;
     }
@@ -98,12 +99,8 @@ export class SaleDetailComponent {
     switch (this.mode) {
       case 'INS':
         if (this.sale) {
-          console.log(this.sale);
-          
           this.saleService.createSale(this.sale).subscribe(
             resp => {
-              console.log(this.sale);
-              
               this.isError = resp.isError;
               this.message = resp.message;
               console.log(resp);
@@ -116,6 +113,8 @@ export class SaleDetailComponent {
         break;
       case 'UPD':
         if (this.sale) {
+          console.log(this.sale);
+          
           this.saleService.updateSale(this.sale).subscribe(
             resp => {
               this.isError = resp.isError;

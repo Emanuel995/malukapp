@@ -28,7 +28,7 @@ export class PaymentComponent {
   }
   create() {
     this.mode = 'INS';
-    this.paymentSelected = { id: 0, name: '' }
+    this.paymentSelected = { id: 0, name: '' , is_deleted:false}
   }
   edit(payment: Payment) {
     this.mode = 'UPD';

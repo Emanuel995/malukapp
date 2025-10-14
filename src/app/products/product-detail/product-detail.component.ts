@@ -2,16 +2,17 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ProductService, Product } from '../../services/product.service';
+import { ProductService, Product, ProductFilter } from '../../services/product.service';
 import { CategoryService, Category } from '../../services/category.service';
 import { Unit, UnitService } from '../../services/unit.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AlertComponent } from '../../utils/alert/alert.component';
 
 @Component({
   standalone: true,
   selector: 'app-product-detail',
-  imports: [CommonModule,RouterModule,FormsModule],
+  imports: [CommonModule,RouterModule,FormsModule, AlertComponent],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
@@ -21,6 +22,9 @@ export class ProductDetailComponent {
   mode:string ='';
   categories: Category[] = [];
   units : Unit[] = [];
+  isError:boolean = false;
+  message:string = '';
+  filters : ProductFilter = {};
 
   constructor(
     private route: ActivatedRoute, 
@@ -50,7 +54,8 @@ export class ProductDetailComponent {
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if(id){
-      this.productService.getProducts().subscribe(products =>{
+      this.filters.includeDeleted=true;
+      this.productService.getProducts(this.filters).subscribe(products =>{
         this.product = products.find(product => product.id === id)
     });
     }else{
@@ -63,24 +68,42 @@ export class ProductDetailComponent {
         category_id:0,
         category_name:"",
         unit_id:0,
-        unit_name:""
+        unit_name:"",
+        is_deleted:false
       }
     } 
   }
 
   save(){
+    this.isError = false;
+    this.message = '';
     if (this.mode == 'INS'){
       if(this.product){
-        this.productService.createProduct(this.product).subscribe({
-          next: () => {this.router.navigate(['/productos'])},
-          error : (error) => {console.log(error.error.error)}
-        });
+        this.productService.createProduct(this.product).subscribe(
+          resp =>{
+            this.isError = resp.isError;
+            this.message = resp.message;
+            console.log(resp);
+            if (this.isError == false){
+              this.router.navigate(['/productos'])
+            }
+          }
+        );
       }
     }
     if(this.mode == 'UPD'){
        if(this.product){
-         this.productService.updateProduct(this.product);
-         this.router.navigate(['/productos']);
+         this.productService.updateProduct(this.product).subscribe(
+            resp =>{
+              this.isError = resp.isError;
+              this.message = resp.message;
+              console.log(resp);
+              if (this.isError == false){
+                this.router.navigate(['/productos'])
+              }
+            } 
+         );
+         
       }     
     }
   }

@@ -4,34 +4,34 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { Sale, Page, SaleService } from '../services/sale.service';
-import { SaleDetailComponent } from './sale-detail/sale-detail.component';
-import { StatePayment, StatesPayment, getStateLabel} from '../utils/enums';
+import { StatesPayment } from '../utils/enums';
+import { PurchaseDetailComponent } from './purchase-detail/purchase-detail.component';
 import { ReportService } from '../services/report.service';
 
 @Component({
-  selector: 'app-sales',
+  selector: 'app-purchases',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, SaleDetailComponent],
-  templateUrl: './sales.component.html',
-  styleUrl: './sales.component.css'
+  imports: [CommonModule, RouterModule, FormsModule,PurchaseDetailComponent],
+  templateUrl: './purchase.component.html',
+  styleUrl: './purchase.component.css'
 })
-export class SalesComponent {
+export class PurchaseComponent {
   mode: string = 'LIST';
   saleSelected: Sale | undefined;
   page: Page | undefined;
   sales: Sale[] = [];
   states = StatesPayment;
   constructor(private saleService: SaleService,
-               private reportService: ReportService) { }
+              private reportService: ReportService
+  ) { }
 
   ngOnInit(): void {
     this.saleService.getSales().subscribe(
       page => {
-        this.page = page;        
-        this.sales = page.items.filter(item => item.kind_id == 1);
+        this.page = page;
+        this.sales = page.items.filter(item => item.kind_id == 2);
       }
     )
-    
     this.sales.forEach(sale => {sale.date = new Date(sale.date)})
   }
 
@@ -40,7 +40,7 @@ export class SalesComponent {
   }
   create() {
     this.mode = 'INS';
-    this.saleSelected = { id: 0, date: new Date(), payment_id: 0, payment_name: "", state_id: this.states.Confirmado,state_name:'', total: 0, items : [],kind_id:1,kind_name:'' }
+    this.saleSelected = { id: 0, date: new Date(), payment_id: 0, payment_name: "", state_id: this.states.Confirmado,state_name:'', total: 0, items : [],kind_id:2, kind_name:'' }
   }
   edit(sale: Sale) {
     this.mode = 'UPD';
@@ -54,6 +54,7 @@ export class SalesComponent {
     this.mode = 'LIST';
     this.ngOnInit();
   }
+
   getDateFormatString(date:Date):string{    
     date = new Date(date)     
     let newDate = date.toLocaleDateString('es-AR', {
@@ -72,11 +73,8 @@ export class SalesComponent {
     });
     return newDate
   }
-  getStateDescription(state:StatePayment):string{
-    return getStateLabel(state)
-  }
   generatePDF(){
-    let query = 'kind_id=1'
+    let query = 'kind_id=2'
     this.reportService.downloadPDF(query).subscribe({
       next: (data) => {
         const fileURL = URL.createObjectURL(data);
@@ -92,7 +90,7 @@ export class SalesComponent {
     })
   }
   generateXLSX(){
-    let query = 'kind_id=1'
+    let query = 'kind_id=2'
     this.reportService.downloadXSLX(query).subscribe({
       next: (data) => {
         const blob = new Blob([data],{

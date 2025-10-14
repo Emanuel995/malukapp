@@ -1,17 +1,16 @@
 <!-- Layout moderno sin Bootstrap grid -->
 <div *ngIf="mode == 'INS' || mode == 'UPD' || mode == 'DSP'">
-  <app-sale-detail [saleSelected]="saleSelected" [(mode)]="mode" (modeChange)="onModeChanged($event)"></app-sale-detail>
+  <app-purchase-detail [saleSelected]="saleSelected" [(mode)]="mode" (modeChange)="onModeChanged($event)"></app-purchase-detail>
 </div>
 <div *ngIf="mode == 'LIST'" class="container">
   <div class="header">
-    <h2 class="title">Ventas</h2>
+    <h2 class="title">Compras</h2>
     <div class="action-btn-header">
-      <button class="btn btn-report" (click)="generatePDF()"><i class="bi bi-filetype-pdf"></i></button>
+      <button class="btn btn-report" (click)="generatePDF()" ><i class="bi bi-filetype-pdf"></i></button>
       <button class="btn btn-report" (click)="generateXLSX()" ><i class="bi bi-filetype-xlsx"></i></button>
-      <button class="btn btn-outline-success" (click)="create()">
-        <i class="bi bi-plus-circle"></i>
-      </button>
+      <button class="btn btn-outline-success" (click)="create()"><i class="bi bi-plus-circle"></i></button>
     </div>
+
   </div>
 
   <form class="search-form" (ngSubmit)="search()">
@@ -40,9 +39,9 @@
             <button *ngIf="false" class="action-btn action-btn-edit" (click)="edit(sale)"><i class="bi bi-pencil-square"></i></button>
           </td>
           <td>{{ sale.id }}</td>
-          <td class="product-name">{{ getDateFormatString(sale.date) +' '+ getTimeFormatString(sale.date) }}</td>
+          <td class="product-name">{{ getDateFormatString(sale.date)+' '+getTimeFormatString(sale.date)}}</td>
           <td>{{ sale.payment_name }}</td>
-          <td>{{ sale.state_name }}</td>
+          <td>{{ sale.state_name}}</td>
           <td class="price-cell">${{ sale.total }}</td>
         </tr>
       </tbody>

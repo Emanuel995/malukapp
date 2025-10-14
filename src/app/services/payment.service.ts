@@ -8,6 +8,7 @@ import { Response } from './response';
 export interface Payment {
   id:number;
   name:string;
+  is_deleted:boolean;
 }
 
 @Injectable({

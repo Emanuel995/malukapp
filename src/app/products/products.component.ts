@@ -1,9 +1,10 @@
 import { Component, OnInit  } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Product, ProductService } from '../services/product.service';
+import { Product, ProductFilter, ProductService } from '../services/product.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Category, CategoryService } from '../services/category.service';
+import { map } from 'rxjs';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -19,6 +20,7 @@ export class ProductsComponent implements OnInit{
   filterName:string ='';
   categories:Category[] = [];
   selectedCategoryId:string='';
+  filters : ProductFilter = {};
 
   constructor(private productService: ProductService, private categoryService:CategoryService){ }
   
@@ -28,7 +30,8 @@ export class ProductsComponent implements OnInit{
         this.categories = categories;
       }
     );
-    this.productService.getProducts().subscribe(products =>{
+    this.filters.includeDeleted = true;
+    this.productService.getProducts(this.filters).subscribe(products =>{
       this.products = products;
       this.filterProducts = products;
     });
@@ -48,5 +51,16 @@ export class ProductsComponent implements OnInit{
       this.filterProducts = this.filterProducts.filter(p => p.category_id == categoryId);
     }
     
+  }
+  activate(product:Product){
+    this.productService.activateProduct(product).subscribe(
+      response => {
+      }
+    )
+  }
+  deactivate(product:Product){
+    this.productService.deactivateProduct(product).subscribe(
+      response => console.log(response)
+    )
   }
 }

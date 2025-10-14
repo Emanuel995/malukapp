@@ -31,6 +31,7 @@ export class PaymentDetailComponent {
     this.payment = {
       id:0,
       name:'',
+      is_deleted:false
     }
   }else{
     this.payment = this.paymentSelected;
