@@ -8,7 +8,7 @@
   --accent-coralhover: oklch(95.82% 0.01758 25.772);
   --filter-text :rgb(57, 57, 57);
   --accent-red: oklch(55.915% 0.20064 26.672);
-  --accent-green: oklch(62.422% 0.16967 136.064);
+  --accent-green: oklch(72.435% 0.18975 135.701);
 }
 body {
   font-family: 'Montserrat', sans-serif !important;
@@ -53,7 +53,7 @@ body {
 .search-controls {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .search-input, .search-select {
@@ -94,7 +94,9 @@ body {
 .btn-search{
   font-size: 1rem;
 }
-
+.order{
+  margin-right: 1rem;
+}
 .table-container {
   background-color: white;
   border-radius: 0.75rem;
@@ -128,6 +130,7 @@ body {
 .table-row {
   transition: background-color 0.2s ease-in-out;
 }
+
 
 .table-row:hover {
   background-color: var(--accent-coralhover);
@@ -197,7 +200,7 @@ body {
 
 .action-btn-play {
   background-color: var(--bg-card-color);
-  color: oklch(0.4 0 0);
+  color: var(--accent-green);
   border: 1px solid var(--border-color);
   border-radius: 0.375rem;
   padding: 0.5rem 0.75rem;
@@ -213,7 +216,7 @@ body {
 
 .action-btn-stop {
   background-color: var(--bg-card-color);
-  color: oklch(0.4 0 0);
+  color: var(--accent-red);
   border: 1px solid var(--border-color);
   border-radius: 0.375rem;
   padding: 0.5rem 0.75rem;
@@ -387,4 +390,83 @@ body {
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.2s;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: oklch(0.2 0 0);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-control,
+.form-select {
+  padding: 0.75rem;
+  border: 1px solid oklch(0.69 0 0);
+  border-radius: 0.375rem;
+  background-color: white;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: oklch(0.69 0.15 25);
+  box-shadow: 0 0 0 3px oklch(0.69 0.15 25 / 0.1);
+}
+
+.form-control:read-only,
+.form-select:disabled {
+  background-color: oklch(0.95 0 0);
+  color: oklch(0.4 0 0);
+  cursor: not-allowed;
+}
+
+.textarea-field {
+  resize: vertical;
+  min-height: 100px;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+
+/* Responsive design para tabla */
+@media (max-width: 768px) {
+  .search-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    max-width: none;
+  }
+
+  .modern-table {
+    font-size: 0.875rem;
+  }
+
+  .table-header th,
+  .table-row td {
+    padding: 0.75rem 0.5rem;
+  }
 }

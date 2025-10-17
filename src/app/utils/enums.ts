@@ -34,6 +34,20 @@ export function getTimeFormatString(date: Date): string {
   return timestring;
 }
 
+export function getDateFormatISO(stringDate:string):string{
+  //YYYY-MM-DD  
+  let arrayDate:string[];
+  arrayDate = stringDate.split('-'); 
+  
+  let day = Number(arrayDate[2])
+  let month = Number(arrayDate[1])
+  let year = Number(arrayDate[0])
+  let date:Date=new Date(year,month-1,day) 
+  
+  return date.toISOString();
+}
+
+
 export const StatesPayment = {
   Confirmado: 1,
   Pendiente: 2,

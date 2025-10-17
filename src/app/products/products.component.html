@@ -9,18 +9,31 @@
 
   <form class="search-form" (ngSubmit)="search()">
     <div class="search-controls">
-      <label class="search-checkbox">
-          <input type="checkbox" name="lowStock">
-          <span>Stock Bajo</span>
-        </label>
-        <select class="search-select" [(ngModel)]="selectedCategoryId" name="categories">
-          <option value="">Todos</option>
-          <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
-        </select>
-        <input type="text" class="search-input" placeholder="Buscar productos..." 
-          [(ngModel)]="filterName" name="filterProducts">
+        <div class="form-group">
+          <label class="form-label" for="categories"> Categorias</label>
+          <select class="search-select" [(ngModel)]="selectedCategoryId" name="categories">
+            <option value="">Todos</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="categories"> Producto</label>
+          <input type="text" class="search-input" placeholder="Buscar productos..." 
+            [(ngModel)]="filterName" name="filterProducts">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="categories"> Estado</label>
+          <select class="search-select" [(ngModel)]="selectedStateId" name="states">
+            <option value="all">Todos</option>
+            <option value="true">Activos</option>
+            <option value="false">Inactivos</option>
+          </select>
+        </div>
+        
     </div>
-    <div><button class="btn btn-search btn-outline-primary" type="submit"><i class="bi bi-search"></i></button></div>
+    <div>
+      <button class="btn btn-search btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+    </div>
   </form>
 
 
@@ -46,8 +59,8 @@
             <button *ngIf="!product.is_deleted" class="action-btn action-btn-stop" (click)="deactivate(product)" ><i class="bi bi-stop-circle"></i></button>  
           </td>
           <td>{{ product.id }}</td>
-          <td class="product-name">{{ product.name }}</td>
-          <td class="price-cell">${{ product.price }}</td>
+          <td [class]="product.is_deleted? 'product-name is-deleted' :'product-name' ">{{ product.name }}</td>
+          <td class="price-cell">{{ product.price |currency:'$':'symbol':'1.2-2'}}</td>
           <td class="stock-cell">{{ product.stock }}</td>
           <td>{{ product.unit_name }}</td>
           <td>{{ product.category_name }}</td>

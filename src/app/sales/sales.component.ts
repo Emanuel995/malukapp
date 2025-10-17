@@ -3,10 +3,11 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { Sale, Page, SaleService } from '../services/sale.service';
+import { Sale, Page, SaleService, Filters } from '../services/sale.service';
 import { SaleDetailComponent } from './sale-detail/sale-detail.component';
 import { StatePayment, StatesPayment, getStateLabel} from '../utils/enums';
 import { ReportService } from '../services/report.service';
+import { getDateFormatString, getTimeFormatString, getDateFormatISO } from '../utils/enums';
 
 @Component({
   selector: 'app-sales',
@@ -21,11 +22,33 @@ export class SalesComponent {
   page: Page | undefined;
   sales: Sale[] = [];
   states = StatesPayment;
+  filters : Filters = {};
+  filterDateFrom:string = '';
+  filterDateTo:string = '';
+  filterStateId:number=0;
   constructor(private saleService: SaleService,
                private reportService: ReportService) { }
 
   ngOnInit(): void {
-    this.saleService.getSales().subscribe(
+    let yesterday:Date= new Date();
+    let tomorrow:Date = new Date();
+    yesterday.setHours(0,0,0,0)
+    tomorrow.setHours(0,0,0,0)
+    yesterday.setDate(yesterday.getDate()-1)
+    tomorrow.setDate(tomorrow.getDate()+1)
+
+    this.filterDateFrom = getDateFormatString(yesterday);
+    this.filterDateTo = getDateFormatString(tomorrow);
+    
+    this.filters.state_id = undefined;
+    if (this.filterStateId > 0){
+      this.filters.state_id = this.filterStateId;
+    }
+    this.filters.dateFrom = yesterday.toISOString();
+    this.filters.dateTo = tomorrow.toISOString();
+    
+    
+    this.saleService.getSales(this.filters).subscribe(
       page => {
         this.page = page;        
         this.sales = page.items.filter(item => item.kind_id == 1);
@@ -36,7 +59,24 @@ export class SalesComponent {
   }
 
   search(): void {
-
+    this.filters.dateFrom = this.filterDateFrom
+    this.filters.dateTo = this.filterDateTo
+    
+    this.filters.state_id = undefined;
+    if (this.filterStateId > 0){
+      this.filters.state_id = this.filterStateId;
+    }
+    this.filters.dateFrom = getDateFormatISO(this.filters.dateFrom);
+    this.filters.dateTo =getDateFormatISO(this.filters.dateTo);
+    
+    this.saleService.getSales(this.filters).subscribe(
+      page => {
+        this.page = page;        
+        this.sales = page.items.filter(item => item.kind_id == 1);
+      }
+    )
+    
+    this.sales.forEach(sale => {sale.date = new Date(sale.date)})
   }
   create() {
     this.mode = 'INS';

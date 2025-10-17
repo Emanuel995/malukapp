@@ -71,6 +71,7 @@ export class ProductService {
   }
 
   updateProduct(product:Product): Observable<Response<Product>>{
+    console.log(product);
     
     return this.http.put<Product>(this.apiUrl+'/'+product.id, product).pipe(
       map((resp: Product) => {

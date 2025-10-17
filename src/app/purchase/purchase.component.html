@@ -15,6 +15,23 @@
 
   <form class="search-form" (ngSubmit)="search()">
     <div class="search-controls">
+      <div class="form-group">
+        <label class="form-label" for="categories"> Fecha Desde</label>
+        <input class="form-control" type="date" name="datefrom" id="datefrom" [(ngModel)] = "filterDateFrom">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="categories"> Fecha Hasta</label>
+        <input class="form-control" type="date" name="dateto" id="dateto" [(ngModel)] = "filterDateTo">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="categories"> Estado</label>
+        <select class="form-select" [(ngModel)]="filterStateId" name="state">
+          <option [value]="0">Todos</option>
+          <option [value]="1">Confirmado</option>
+          <option [value]="2">Pendiente</option>
+          <option [value]="3">Anulado</option>
+        </select>
+      </div>
     </div>
     <div><button class="btn btn-search btn-outline-primary" type="submit"><i class="bi bi-search"></i></button></div>
   </form>
@@ -42,7 +59,7 @@
           <td class="product-name">{{ getDateFormatString(sale.date)+' '+getTimeFormatString(sale.date)}}</td>
           <td>{{ sale.payment_name }}</td>
           <td>{{ sale.state_name}}</td>
-          <td class="price-cell">${{ sale.total }}</td>
+          <td class="price-cell">{{ sale.total | currency:'$':'symbol':'1.2-2' }}</td>
         </tr>
       </tbody>
     </table>

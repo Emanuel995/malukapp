@@ -49,7 +49,7 @@ export class PurchaseDetailComponent {
 
   ngOnInit(): void {
     this.sale = this.saleSelected;
-    this.filters.includeDeleted=true;
+    this.filters.includeDeleted=false;
     this.productService.getProducts(this.filters).subscribe(products => this.products = products);
     this.paymentService.getPayments().subscribe(payment => this.payments = payment);
     this.stateSelect = getStateOptions();

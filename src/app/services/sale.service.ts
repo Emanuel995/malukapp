@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { env } from './env';
@@ -36,6 +36,14 @@ export interface Items {
   product:Product | null,
 }
 
+export interface Filters {
+  dateFrom?:string,
+  dateTo?:string,
+  kind_id?:number,
+  state_id?:number,
+  payment_id?:number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,8 +52,18 @@ export class SaleService {
   private apiUrl = env.api_url + '/api/sales';
   constructor(private http: HttpClient) { }
 
-  getSales(): Observable<Page> {
-    return this.http.get<Page>(this.apiUrl).pipe(
+  getSales(filters?:Filters): Observable<Page> {
+    let params = new HttpParams();
+    if  (filters){
+      Object.entries(filters).forEach(
+        ([key,value])=>{
+          if (value !== null && value !== undefined && value !== '') params = params.append(key,value);
+        }
+      );
+    }
+    console.log(params);
+    
+    return this.http.get<Page>(this.apiUrl, { params }).pipe(
       catchError(error => {
         console.error("Error al obtener Ventas: " + error.error.error);
         return of();

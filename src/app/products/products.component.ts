@@ -21,6 +21,7 @@ export class ProductsComponent implements OnInit{
   categories:Category[] = [];
   selectedCategoryId:string='';
   filters : ProductFilter = {};
+  selectedStateId:string='all';
 
   constructor(private productService: ProductService, private categoryService:CategoryService){ }
   
@@ -30,19 +31,26 @@ export class ProductsComponent implements OnInit{
         this.categories = categories;
       }
     );
+    this.selectedStateId = 'all';
     this.filters.includeDeleted = true;
     this.productService.getProducts(this.filters).subscribe(products =>{
       this.products = products;
       this.filterProducts = products;
     });
     
-    
   }
 
   search():void{
     const filter = this.filterName.toLowerCase().trim();
     const categoryId = Number(this.selectedCategoryId);
-    this.filterProducts = this.products;
+    this.filterProducts = this.products;  
+    
+    if (this.selectedStateId !== 'all'){
+      let isDeleted : boolean;
+      isDeleted =  this.selectedStateId === 'true' ? false : true;
+      console.log(isDeleted);
+      this.filterProducts = this.filterProducts.filter(p => p.is_deleted === isDeleted)
+    }
     if (filter.length > 0){
       this.filterProducts = this.products.filter(p => p.name.toLowerCase().trim().includes(filter));
       
@@ -53,14 +61,19 @@ export class ProductsComponent implements OnInit{
     
   }
   activate(product:Product){
+    const index = this.filterProducts.findIndex(p => p.id === product.id);
     this.productService.activateProduct(product).subscribe(
       response => {
+        this.filterProducts[index].is_deleted = false
       }
     )
   }
   deactivate(product:Product){
+    const index = this.filterProducts.findIndex(p => p.id === product.id);
     this.productService.deactivateProduct(product).subscribe(
-      response => console.log(response)
+      response => {
+        this.filterProducts[index].is_deleted = true
+      }
     )
   }
 }
