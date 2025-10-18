@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -9,14 +9,17 @@ import { Component, Input } from '@angular/core';
   styleUrl: './modal.component.css'
 })
 export class ModalComponent {
-  @Input() title: string = 'Título del Modal';
-  isOpen = false;
+  @Input() message: string = '¿Está seguro de continuar?';
+  @Input() show: boolean = false;
 
-  open() {
-    this.isOpen = true;
+  @Output() confirm = new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<void>();
+
+  onConfirm() {
+    this.confirm.emit();
   }
 
-  close() {
-    this.isOpen = false;
+  onCancel() {
+    this.cancel.emit();
   }
 }

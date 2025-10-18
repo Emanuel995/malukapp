@@ -53,7 +53,9 @@
         <tr *ngFor="let sale of sales" class="table-row">
           <td class="actions-cell">
             <button class="action-btn action-btn-view" (click)="view(sale)"><i class="bi bi-eye"></i></button>
-            <button *ngIf="false" class="action-btn action-btn-edit" (click)="edit(sale)"><i class="bi bi-pencil-square"></i></button>
+            <button *ngIf="sale.state_id == 2 || sale.state_id == 1" class="action-btn action-btn-stop" (click)="changeState(sale,states.Anulado)"><i class="bi bi-x-circle"></i></button>
+            <button *ngIf="sale.state_id == 2" class="action-btn action-btn-play" (click)="changeState(sale,states.Confirmado)"><i class="bi bi-check-circle"></i></button>
+            <button *ngIf="false" class="action-btn action-btn-edit" (click)="view(sale)"><i class="bi bi-pencil-square"></i></button>
           </td>
           <td>{{ sale.id }}</td>
           <td class="product-name">{{ getDateFormatString(sale.date)+' '+getTimeFormatString(sale.date)}}</td>
@@ -70,3 +72,10 @@
     <button class="btn-outline-success"><i class="bi bi-arrow-right-circle"></i></button>
   </div>
 </div>
+
+<app-modal
+  [show]="showModal"
+  [message]="messageModal"
+  (confirm)="confirmModal()"
+  (cancel)="cancelModal()">
+</app-modal>

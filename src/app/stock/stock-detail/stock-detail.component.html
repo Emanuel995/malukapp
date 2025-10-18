@@ -1,0 +1,88 @@
+<!-- Formulario moderno sin Bootstrap -->
+<div *ngIf="sale; else notFound" class="detail-container">
+  <app-alert [isError]="isError" [message]="message"></app-alert>
+  <div class="card">
+    <h3 class="form-title">{{ mode=='INS' ? 'Registrar Ajuste de Stock' : mode=='DSP' ? 'Detalle del Ajuste de Stock' : 'Editar Venta'}}
+    </h3>
+
+    <form (ngSubmit)="save()" class="form">
+      <div class="form-row">
+        <div style="display: none;" *ngIf="mode!='INS'" class="form-group">
+          <label class="form-label">Identificador</label>
+          <input class="form-control" [(ngModel)]="sale.id" name="id" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fecha</label>
+          <input class="form-control" type="date" [(ngModel)]="date" name="date" [readonly]="!editable">
+          <input class="form-control" type="time" [(ngModel)]="time" name="time" [readonly]="!editable">
+        </div>
+      </div>
+      <table class="modern-table">
+        <thead class="table-header">
+          <tr class="">
+            <th style="display: none;">#</th>
+            <th></th>
+            <th>Producto</th>
+            <th class="price-header">Stock Actual</th>
+            <th class="price-header">Ajuste</th>
+            <th class="price-header">Stock Nuevo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items" class="table-row">
+            <td><a *ngIf="editable"><i class="bi bi-trash3" (click)="removeProduct(item)"></i></a></td>
+            <td style="width: 5%; display: none;">{{item.product?.id}}</td>
+            <td class="product-name">{{item.product?.name}}</td>
+            <td class="cant-cell"><input class="form-control" type="number" name="quatity-{{item.product_id}}"
+                [(ngModel)]="item.quantity" (ngModelChange)="onQuantitychange(item)" min="0" [readonly]="!editable"></td>
+            <td class="price-cell">{{item.unit_price | currency:'$':'symbol':'1.2-2'}}</td>
+            <td class="price-cell">{{item.subtotal | currency:'$':'symbol':'1.2-2'}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="editable" class="form-suggest">
+        <div class="form-group-row" style="margin-bottom: 0rem;">
+          <div class="form-group-col input-product">
+            <label class="form-label">Agregar Producto </label>
+            <input class="form-control input-product" name="newProduct" type="text" [(ngModel)]="filter"
+              placeholder="Buscar..." (input)="onSearch()">
+          </div>
+          <div class="form-group-col">
+            <label class="form-label">Stock Actual </label>
+            <input class="form-control" name="price" type="text" min="0" max="999" [(ngModel)]="newProductPrice" readonly>
+          </div>
+          <div class="form-group-col">
+            <label class="form-label">Ajuste </label>
+            <input class="form-control" name="quantity" type="number" min="-999" max="999" [(ngModel)]="newQuantity">
+          </div>
+          <div class="form-group-col">
+            <label class="form-label"> </label>
+            <a class="btn btn-outline-success" (click)="addProduct()"><i class="bi bi-plus-circle"></i></a>
+          </div>
+        </div>
+        <div class="form-group-row" style="margin-top: 0rem;">
+          <div class="form-group-col input-product">
+          <ul class="ul-suggest " *ngIf="suggestions.length>0">
+            <li class="li-suggest " *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
+              {{ suggestion.name }}
+            </li>
+          </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a class="btn btn-outline-secondary" (click)="back()">Volver</a>
+        <button *ngIf="editable" type="submit" class="btn btn-outline-success" [disabled]="mode=='DSP'"><i
+            class="bi bi-floppy"></i>&nbsp; Confirmar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="error-message">
+    <h3>⚠️ Venta no encontrado</h3>
+    <p>La Venta que buscas no existe o ha sido eliminado.</p>
+  </div>
+</ng-template>

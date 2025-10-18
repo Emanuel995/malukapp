@@ -2,7 +2,7 @@
 <body class="body">
 <nav class="modern-navbar">
   <div class="navbar-container">
-    <h2 class="navbar-brand">MalukApp</h2>
+    <img src="applogo.PNG" width="10%" height="100%">
     <button class="navbar-toggle" type="button" id="navToggle">
       <span class="navbar-toggle-icon"></span>
       <span class="navbar-toggle-icon"></span>
@@ -14,20 +14,23 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="this.isLogin" class="nav-item">
           <a class="nav-link" routerLink="productos" routerLinkActive="active">Productos</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="this.isLogin" class="nav-item">
           <a class="nav-link" routerLink="ventas" routerLinkActive="active">Ventas</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="this.isLogin" class="nav-item">
           <a class="nav-link" routerLink="compras" routerLinkActive="active">Compras</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="this.isLogin" class="nav-item">
           <a class="nav-link" routerLink="gestion" routerLinkActive="active">Gestión</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="!this.isLogin" class="nav-item">
           <a class="nav-link" routerLink="login" routerLinkActive="active">Iniciar Sesion</a>
+        </li>
+        <li *ngIf="this.isLogin" class="nav-item">
+          <a class="nav-link" routerLink="logout" routerLinkActive="active" (click)="logout()">Salir</a>
         </li>
       </ul>
     </div>

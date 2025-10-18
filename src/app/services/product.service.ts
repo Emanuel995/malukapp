@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, map} from 'rxjs';
-import { catchError  } from 'rxjs/operators';
+import { catchError, tap  } from 'rxjs/operators';
 import {env} from './env';
 import { Response } from './response';
 
@@ -40,7 +40,7 @@ export class ProductService {
       }
     );
         
-    return this.http.get<{items : Product[]}>(this.apiUrl, { params }).pipe(
+    return this.http.get<{items : Product[]}>(this.apiUrl, { params }).pipe(    
       map(response => response.items ),      
       catchError( error => {
         console.error("Error al obtener productos: "+ error.error.error);

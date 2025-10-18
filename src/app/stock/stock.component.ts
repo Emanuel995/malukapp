@@ -4,20 +4,21 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { Sale, Page, SaleService, Filters } from '../services/sale.service';
-import { SaleDetailComponent } from './sale-detail/sale-detail.component';
+import { SaleDetailComponent } from '../sales/sale-detail/sale-detail.component'
 import { StatePayment, StatesPayment, getStateLabel, getStateOptions} from '../utils/enums';
 import { ReportService } from '../services/report.service';
 import { getDateFormatString, getTimeFormatString, getDateFormatISO } from '../utils/enums';
 import { ModalComponent } from '../utils/modal/modal.component';
+import { StockDetailComponent } from './stock-detail/stock-detail.component';
 
 @Component({
-  selector: 'app-sales',
+  selector: 'app-stock',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, SaleDetailComponent,ModalComponent],
-  templateUrl: './sales.component.html',
-  styleUrl: './sales.component.css'
+  imports: [CommonModule, RouterModule, FormsModule, StockDetailComponent,ModalComponent],
+  templateUrl: './stock.component.html',
+  styleUrl: './stock.component.css'
 })
-export class SalesComponent {
+export class StockComponent {
   mode: string = 'LIST';
   saleSelected: Sale | undefined;
   page: Page | undefined;
@@ -51,12 +52,12 @@ export class SalesComponent {
     }
     this.filters.dateFrom = yesterday.toISOString();
     this.filters.dateTo = tomorrow.toISOString();
-    
+    this.filters.kind_id = 3;
     
     this.saleService.getSales(this.filters).subscribe(
       page => {
         this.page = page;        
-        this.sales = page.items.filter(item => item.kind_id == 1);
+        this.sales = page.items;
       }
     )
     
@@ -77,7 +78,7 @@ export class SalesComponent {
     this.saleService.getSales(this.filters).subscribe(
       page => {
         this.page = page;        
-        this.sales = page.items.filter(item => item.kind_id == 1);
+        this.sales = page.items.filter(item => item.kind_id == 3);
       }
     )
     
@@ -85,7 +86,7 @@ export class SalesComponent {
   }
   create() {
     this.mode = 'INS';
-    this.saleSelected = { id: 0, date: new Date(), payment_id: 0, payment_name: "", state_id: this.states.Confirmado,state_name:'', total: 0, items : [],kind_id:1,kind_name:'' }
+    this.saleSelected = { id: 0, date: new Date(), payment_id: 1, payment_name: "", state_id: this.states.Confirmado,state_name:'', total: 0, items : [],kind_id:3,kind_name:'' }
   }
   edit(sale: Sale) {
     this.mode = 'UPD';

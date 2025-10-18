@@ -1,16 +1,9 @@
-<div class="modal-backdrop" *ngIf="isOpen" (click)="close()"></div>
-
-<div class="modal" *ngIf="isOpen">
-  <div class="modal-header">
-    <h2>{{ title }}</h2>
-    <button class="close-btn" (click)="close()">✖</button>
-  </div>
-
-  <div class="modal-body">
-    <ng-content></ng-content>
-  </div>
-
-  <div class="modal-footer">
-    <button class="btn action-btn-view" (click)="close()">Cerrar</button>
+<div class="modal-backdrop" *ngIf="show">
+  <div class="modal">
+    <h3 class="title2">{{ message }}</h3>
+    <div class="modal-actions">
+      <button class="btn btn-outline-primary" (click)="onCancel()">Cancelar</button>
+      <button class="btn btn-outline-success" (click)="onConfirm()">Confirmar</button>
+    </div>
   </div>
 </div>

@@ -61,7 +61,6 @@ export class SaleService {
         }
       );
     }
-    console.log(params);
     
     return this.http.get<Page>(this.apiUrl, { params }).pipe(
       catchError(error => {
@@ -117,6 +116,27 @@ export class SaleService {
             message: 'Error al actualizar Venta: ' + error.error.error
           });
       }))
+  }
+  updateStateSale(sale:Sale, newState:number):Observable<Response<Sale>>{
+    const body = {
+      "state_id":newState
+    }
+    return this.http.post<Response<Sale>>(this.apiUrl+'/'+sale.id+'/state',body).pipe(
+      map((resp) => {
+        return {
+          isError:false,
+          message:resp.message
+        }
+      }),
+      catchError(err => {
+        return of (
+          {
+            isError:true,
+            message:'Error al modificar estado. '+err.error.error
+          }
+        )
+      })
+    )
   }
 
 }

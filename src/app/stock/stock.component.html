@@ -1,13 +1,13 @@
 <!-- Layout moderno sin Bootstrap grid -->
 <div *ngIf="mode == 'INS' || mode == 'UPD' || mode == 'DSP'">
-  <app-sale-detail [saleSelected]="saleSelected" [(mode)]="mode" (modeChange)="onModeChanged($event)"></app-sale-detail>
+  <app-stock-detail [saleSelected]="saleSelected" [(mode)]="mode" (modeChange)="onModeChanged($event)"></app-stock-detail>
 </div>
 <div *ngIf="mode == 'LIST'" class="container">
   <div class="header">
-    <h2 class="title">Ventas</h2>
+    <h2 class="subtitle">Ajustes de Stock</h2>
     <div class="action-btn-header">
-      <button class="btn btn-report" (click)="generatePDF()"><i class="bi bi-filetype-pdf"></i></button>
-      <button class="btn btn-report" (click)="generateXLSX()"><i class="bi bi-filetype-xlsx"></i></button>
+      <button *ngIf="false" class="btn btn-report" (click)="generatePDF()"><i class="bi bi-filetype-pdf"></i></button>
+      <button *ngIf="false" class="btn btn-report" (click)="generateXLSX()"><i class="bi bi-filetype-xlsx"></i></button>
       <button class="btn btn-outline-success" (click)="create()">
         <i class="bi bi-plus-circle"></i>
       </button>
@@ -24,7 +24,7 @@
         <label class="form-label" for="categories"> Fecha Hasta</label>
         <input class="form-control" type="date" name="dateto" id="dateto" [(ngModel)]="filterDateTo">
       </div>
-      <div class="form-group">
+      <div *ngIf="false" class="form-group">
         <label class="form-label" for="categories"> Estado</label>
         <select class="form-select" [(ngModel)]="filterStateId" name="state">
           <option class="form-option" [value]="0">Todos</option>
@@ -45,17 +45,17 @@
     <table class="modern-table">
       <thead class="table-header">
         <tr>
-          <th class="actions-column">Acciones</th>
+          <th *ngIf="false" class="actions-column">Acciones</th>
           <th>#</th>
-          <th>Fecha</th>
-          <th>Forma de Pago</th>
-          <th>Estado</th>
-          <th style="text-align: right;">Total</th>
+          <th >Fecha</th>
+          <th *ngIf="false">Forma de Pago</th>
+          <th *ngIf="false">Estado</th>
+          <th *ngIf="false" style="text-align: right;">Total</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let sale of sales" class="table-row">
-          <td class="actions-cell">
+          <td  *ngIf="false" class="actions-cell">
             <button class="action-btn action-btn-view" (click)="view(sale)"><i class="bi bi-eye"></i></button>
             <button *ngIf="sale.state_id == 2 || sale.state_id == 1" class="action-btn action-btn-stop" (click)="changeState(sale,states.Anulado)"><i class="bi bi-x-circle"></i></button>
             <button *ngIf="sale.state_id == 2" class="action-btn action-btn-play" (click)="changeState(sale,states.Confirmado)"><i class="bi bi-check-circle"></i></button>
@@ -63,14 +63,14 @@
           </td>
           <td>{{ sale.id }}</td>
           <td class="product-name">{{ getDateFormatString(sale.date) +' '+ getTimeFormatString(sale.date) }}</td>
-          <td>{{ sale.payment_name }}</td>
-          <td>{{ sale.state_name }}</td>
-          <td class="price-cell">{{ sale.total|currency:'$':'symbol':'1.2-2' }}</td>
+          <td *ngIf="false">{{ sale.payment_name }}</td>
+          <td *ngIf="false">{{ sale.state_name }}</td>
+          <td *ngIf="false" class="price-cell">{{ sale.total|currency:'$':'symbol':'1.2-2' }}</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="table-pagination">
+  <div *ngIf="false" class="table-pagination">
     <button class="btn-outline-success"><i class="bi bi-arrow-left-circle"></i></button>
     <button class="btn-outline-success"><a>#</a></button>
     <button class="btn-outline-success"><i class="bi bi-arrow-right-circle"></i></button>

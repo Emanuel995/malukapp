@@ -55,8 +55,8 @@
           <td class="actions-cell">
             <button class="action-btn action-btn-view" [routerLink]="['/productos','view', product.id]"><i class="bi bi-eye"></i></button> 
             <button class="action-btn action-btn-edit" [routerLink]="['/productos','edit', product.id]"><i class="bi bi-pencil-square"></i></button>
-            <button *ngIf="product.is_deleted" class="action-btn action-btn-play" (click)="activate(product)" ><i class="bi bi-play-fill"></i></button>
-            <button *ngIf="!product.is_deleted" class="action-btn action-btn-stop" (click)="deactivate(product)" ><i class="bi bi-stop-circle"></i></button>  
+            <button *ngIf="product.is_deleted" class="action-btn action-btn-play" (click)="setSelectProduct(product)" ><i class="bi bi-play-fill"></i></button>
+            <button *ngIf="!product.is_deleted" class="action-btn action-btn-stop" (click)="setSelectProduct(product)" ><i class="bi bi-stop-circle"></i></button>  
           </td>
           <td>{{ product.id }}</td>
           <td [class]="product.is_deleted? 'product-name is-deleted' :'product-name' ">{{ product.name }}</td>
@@ -69,3 +69,10 @@
     </table>
   </div>
 </div>
+
+<app-modal
+  [show]="showModal"
+  [message]="messageModal"
+  (confirm)="confirmModal()"
+  (cancel)="cancelModal()">
+</app-modal>

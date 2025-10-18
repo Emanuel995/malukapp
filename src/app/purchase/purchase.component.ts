@@ -7,11 +7,12 @@ import { Sale, Page, SaleService, Filters } from '../services/sale.service';
 import { getDateFormatISO, getDateFormatString, StatesPayment } from '../utils/enums';
 import { PurchaseDetailComponent } from './purchase-detail/purchase-detail.component';
 import { ReportService } from '../services/report.service';
+import { ModalComponent } from '../utils/modal/modal.component';
 
 @Component({
   selector: 'app-purchases',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule,PurchaseDetailComponent],
+  imports: [CommonModule, RouterModule, FormsModule,PurchaseDetailComponent,ModalComponent],
   templateUrl: './purchase.component.html',
   styleUrl: './purchase.component.css'
 })
@@ -25,6 +26,9 @@ export class PurchaseComponent {
   filterDateTo:string = '';
   filterStateId:number=0;
   states = StatesPayment;
+  newState:number=0;
+  showModal:boolean=false;
+  messageModal:string='';
   constructor(private saleService: SaleService,
               private reportService: ReportService
   ) { }
@@ -145,5 +149,31 @@ export class PurchaseComponent {
         console.error('Error al descarga Excel. ',error)
       }
     })
+  }
+  changeState(sale:Sale, newState:number){
+    this.saleSelected = sale;
+    this.newState = newState;
+    this.showModal = true;
+    this.messageModal = '¿Está seguro que desea cambiar el estado de la venta?'
+  }
+  confirmModal(){   
+    if (this.saleSelected){
+      this.saleService.updateStateSale(this.saleSelected,this.newState).subscribe({
+        next:(resp)=>{
+          console.log(resp.isError,resp.message);
+          const index = this.sales.findIndex(sale => sale.id === this.saleSelected?.id);
+          this.sales[index].state_id = this.newState
+        },
+        error:(err)=>{
+          console.log(err);
+        }
+
+      });
+    }
+    this.showModal = false;
+
+  }
+  cancelModal(){
+    this.showModal = false;
   }
 }

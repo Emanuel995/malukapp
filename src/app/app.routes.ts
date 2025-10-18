@@ -5,17 +5,20 @@ import { ProductDetailComponent } from './products/product-detail/product-detail
 import { SalesComponent } from './sales/sales.component';
 import { ManagementComponent } from './management/management.component';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { AuthGuard } from './auth/auth.guard';
+import { LoginComponent } from './auth/login.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent,
       children: [
-        { path: 'productos', component: ProductsComponent },
-        { path: 'productos/edit/:id', component: ProductDetailComponent },
-        { path: 'productos/view/:id', component: ProductDetailComponent },
-        { path: 'productos/new', component: ProductDetailComponent },
-        { path: 'ventas', component:SalesComponent},
-        { path: 'gestion',component:ManagementComponent},
-        { path: 'compras',component:PurchaseComponent}
+        { path: 'productos', component: ProductsComponent, canActivate: [AuthGuard] },
+        { path: 'productos/edit/:id', component: ProductDetailComponent, canActivate: [AuthGuard] },
+        { path: 'productos/view/:id', component: ProductDetailComponent, canActivate: [AuthGuard] },
+        { path: 'productos/new', component: ProductDetailComponent, canActivate: [AuthGuard] },
+        { path: 'ventas', component:SalesComponent, canActivate: [AuthGuard]},
+        { path: 'gestion',component:ManagementComponent, canActivate: [AuthGuard]},
+        { path: 'compras',component:PurchaseComponent, canActivate: [AuthGuard]},
+        { path: 'login', component: LoginComponent }
       ]
      },
 ];
