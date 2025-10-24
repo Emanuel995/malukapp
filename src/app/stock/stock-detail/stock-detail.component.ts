@@ -25,18 +25,19 @@ export class StockDetailComponent {
   items: Items[] = [];
   item: Items | undefined;
   products: Product[] = [];
-  newPorduct: Product | undefined;
+  newProduct: Product | undefined;
   filter: string = '';
   suggestions: Product[] = [];
   total: number = 0;
-  newQuantity: number = 1;
-  newProductPrice: number = 0;
+
+  newProductStock: number = 0;
+  newStock: number = 0;
   payments: Payment[] | undefined;
   states = StatesPayment;
-  stateSelect : StateOption[] = [];
+  stateSelect: StateOption[] = [];
   movementsType = MovementsType;
-  movementsSelect : MovementOption[] = [];
-  filters : ProductFilter = {};
+  movementsSelect: MovementOption[] = [];
+  filters: ProductFilter = {};
   @Input() saleSelected: Sale | undefined;
   @Input() mode: string = '';
   @Output() modeChange = new EventEmitter<string>();
@@ -64,24 +65,23 @@ export class StockDetailComponent {
         payment_name: "",
         total: 0,
         state_id: this.states.Confirmado,
-        state_name:'',
+        state_name: '',
         items: [],
-        kind_id:3,
-        kind_name:''
+        kind_id: 3,
+        kind_name: ''
       }
       this.sale.date = new Date(this.sale.date);
       this.date = getDateFormatString(this.sale.date)
       this.time = getTimeFormatString(this.sale.date);
-    }else{
+    } else {
       if (this.sale) {
         this.sale.date = new Date(this.sale.date);
         if (this.sale.date instanceof Date) {
           this.date = getDateFormatString(this.sale.date)
           this.time = getTimeFormatString(this.sale.date);
-        }   
+        }
         this.saleService.getSaleById(this.sale.id).subscribe(sale => {
           this.items = sale.items;
-          this.setTotalSale();
         })
       }
     }
@@ -95,21 +95,22 @@ export class StockDetailComponent {
   save() {
     this.isError = false;
     this.message = '';
+    this.addProduct();
     switch (this.mode) {
       case 'INS':
-        if (this.sale) {         
+        if (this.sale) {
+          console.log(this.sale);
+          
           this.saleService.createSale(this.sale).subscribe(
             resp => {
-              console.log(this.sale);
-              
               this.isError = resp.isError;
               this.message = resp.message;
               console.log(resp);
               if (this.isError == false) {
                 this.modeChange.emit('LIST');
               }
-            }
-          );
+          });
+          
         }
         break;
     }
@@ -127,42 +128,46 @@ export class StockDetailComponent {
   }
   selectSuggestion(product: Product) {
     this.filter = product.name;
-    this.newPorduct = product;
-    this.newProductPrice = product.price;
+    this.newProduct = product;
     this.suggestions = [];
+
   }
   addProduct() {
-    if (this.newPorduct) {
+    if (this.newStock === 0) {
+      this.isError = true;
+      this.message = 'El ajuste debe ser distinto de 0';
+    }
+    if (this.newProductStock < 0) {
+      this.isError = true;
+      this.message = 'El resultado del ajuste debe ser mayor  a 0';
+    }
+    if (this.newProduct && this.isError === false) {
       this.item = {
-        product_id: this.newPorduct.id,
-        product_name: this.newPorduct.description,
-        quantity: this.newQuantity,
+        product_id: this.newProduct.id,
+        product_name: this.newProduct.name,
+        quantity: this.newStock,
         sale_id: this.sale ? this.sale.id : 0,
-        unit_price: this.newProductPrice,
-        subtotal: this.newQuantity * this.newProductPrice,
-        product:this.newPorduct,
+        unit_price: 0,
+        subtotal: 0,
       }
 
       this.items.push(this.item);
-      if (this.sale){
+      if (this.sale) {
         this.sale.items = this.items
       }
-      this.setTotalSale();
-      this.newQuantity = 1;
       this.filter = "";
-      this.newProductPrice = 0;
     }
   }
-  onQuantitychange(item: Items) {
-    item.subtotal = item.quantity * item.unit_price;
-    this.setTotalSale();
+  onQuantitychange() {
+    if (this.newProduct) {
+      this.newProductStock = this.newProduct?.stock + this.newStock
+    }
+  }
 
-  }
-  setTotalSale() {
-    this.total = this.items.reduce((total, item) => total + item.subtotal, 0)
-  }
-  removeProduct(item: Items) {
-    this.items = this.items.filter(i => i.product_id !== item.product_id)
-    this.setTotalSale();
+  removeProduct() {
+    this.filter = '';
+    this.newProduct = undefined;
+    this.newStock = 0;
+    this.newProductStock = 0;
   }
 }

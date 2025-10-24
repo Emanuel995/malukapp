@@ -45,27 +45,19 @@
     <table class="modern-table">
       <thead class="table-header">
         <tr>
-          <th *ngIf="false" class="actions-column">Acciones</th>
           <th>#</th>
-          <th >Fecha</th>
-          <th *ngIf="false">Forma de Pago</th>
-          <th *ngIf="false">Estado</th>
-          <th *ngIf="false" style="text-align: right;">Total</th>
+          <th>Fecha</th>
+          <th>Producto</th>
+          <th>Ajuste</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let sale of sales" class="table-row">
-          <td  *ngIf="false" class="actions-cell">
-            <button class="action-btn action-btn-view" (click)="view(sale)"><i class="bi bi-eye"></i></button>
-            <button *ngIf="sale.state_id == 2 || sale.state_id == 1" class="action-btn action-btn-stop" (click)="changeState(sale,states.Anulado)"><i class="bi bi-x-circle"></i></button>
-            <button *ngIf="sale.state_id == 2" class="action-btn action-btn-play" (click)="changeState(sale,states.Confirmado)"><i class="bi bi-check-circle"></i></button>
-            <button *ngIf="false" class="action-btn action-btn-edit" (click)="view(sale)"><i class="bi bi-pencil-square"></i></button>
-          </td>
+          <td  *ngIf="false" class="actions-cell"></td>
           <td>{{ sale.id }}</td>
-          <td class="product-name">{{ getDateFormatString(sale.date) +' '+ getTimeFormatString(sale.date) }}</td>
-          <td *ngIf="false">{{ sale.payment_name }}</td>
-          <td *ngIf="false">{{ sale.state_name }}</td>
-          <td *ngIf="false" class="price-cell">{{ sale.total|currency:'$':'symbol':'1.2-2' }}</td>
+          <td class="">{{ getDateFormatString(sale.date) +' '+ getTimeFormatString(sale.date) }}</td>
+          <td class="product-name">{{ sale.items[0].product_name }}</td>
+          <td class="price-cell">{{ sale.items[0].quantity }}</td>   
         </tr>
       </tbody>
     </table>

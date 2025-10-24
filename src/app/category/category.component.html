@@ -22,7 +22,8 @@
         <tr *ngFor="let category of categories" class="table-row">
           <td class="actions-cell">
             <a class="action-btn action-btn-edit" (click)="edit(category)"><i class="bi bi-pencil-square"></i></a> 
-            <a class="action-btn action-btn-del" ><i class="bi bi-x-octagon"></i></a> 
+            <button *ngIf="category.is_deleted" class="action-btn action-btn-play" (click)="setSelectCategory(category)" ><i class="bi bi-play-fill"></i></button>
+            <button *ngIf="!category.is_deleted" class="action-btn action-btn-stop" (click)="setSelectCategory(category)" ><i class="bi bi-stop-circle"></i></button>  
           </td>
           <td>{{ category.id }}</td>
           <td class="product-name">{{ category.name }}</td>
@@ -30,5 +31,11 @@
       </tbody>
     </table>
   </div>
-  
 </div>
+
+<app-modal
+  [show]="showModal"
+  [message]="messageModal"
+  (confirm)="confirmModal()"
+  (cancel)="cancelModal()">
+</app-modal>

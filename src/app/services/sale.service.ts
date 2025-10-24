@@ -33,7 +33,7 @@ export interface Items {
   quantity:number,
   unit_price:number,
   subtotal:number,
-  product:Product | null,
+  product?:Product | null,
 }
 
 export interface Filters {

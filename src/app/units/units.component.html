@@ -23,7 +23,8 @@
         <tr *ngFor="let unit of units" class="table-row">
           <td class="actions-cell">
             <a class="action-btn action-btn-edit" (click)="edit(unit)"><i class="bi bi-pencil-square"></i></a> 
-            <a class="action-btn action-btn-del" ><i class="bi bi-x-octagon"></i></a> 
+            <button *ngIf="unit.is_deleted" class="action-btn action-btn-play" (click)="setSelectUnit(unit)" ><i class="bi bi-play-fill"></i></button>
+            <button *ngIf="!unit.is_deleted" class="action-btn action-btn-stop" (click)="setSelectUnit(unit)" ><i class="bi bi-stop-circle"></i></button>  
           </td>
           <td>{{ unit.id }}</td>
           <td class="product-name">{{ unit.name }}</td>
@@ -32,5 +33,11 @@
       </tbody>
     </table>
   </div>
-  
 </div>
+
+<app-modal
+  [show]="showModal"
+  [message]="messageModal"
+  (confirm)="confirmModal()"
+  (cancel)="cancelModal()">
+</app-modal>

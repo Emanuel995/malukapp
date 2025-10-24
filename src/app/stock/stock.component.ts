@@ -58,10 +58,12 @@ export class StockComponent {
       page => {
         this.page = page;        
         this.sales = page.items;
+        console.log(this.sales);
+        this.sales.forEach(sale => {sale.date = new Date(sale.date)})
       }
     )
     
-    this.sales.forEach(sale => {sale.date = new Date(sale.date)})
+    
   }
 
   search(): void {
