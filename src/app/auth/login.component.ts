@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService, ResponseLogin } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../utils/alert/alert.component';
@@ -36,5 +36,22 @@ export class LoginComponent {
         this.isError = true
       }
     });
+  }
+
+  recoveryPassword(){
+    this.authService.forgotPassword(this.email).subscribe({
+      next : (response) => {
+        console.log(typeof response);
+        console.log('response component ',response);
+        this.validResponse(response);
+      },
+    })
+  }
+
+  validResponse(response:ResponseLogin){
+    this.isError = response.error ? true : false;
+    this.errorMessage = response.message ? response.message : ''
+    console.log('isError: ',this.isError,' errorMessge: ',this.errorMessage);
+    
   }
 }
