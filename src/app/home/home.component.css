@@ -90,9 +90,9 @@
 }
 
 .main-container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
 }
 
 /* Responsive design */

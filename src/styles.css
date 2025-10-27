@@ -9,6 +9,7 @@
   --filter-text :rgb(57, 57, 57);
   --accent-red: oklch(55.915% 0.20064 26.672);
   --accent-green: oklch(72.435% 0.18975 135.701);
+  --bg-card-login-color: rgba(255, 255, 255, 0.75);
 }
 body {
   font-family: 'Montserrat', sans-serif !important;
@@ -19,7 +20,7 @@ body {
 /*Generales*/
 .container {
   max-width: 100%;
-  margin: 0 auto;
+  margin: 1.5rem auto;
   padding: 0 1rem;
 }
 .header {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-alert',
@@ -12,10 +12,15 @@ export class AlertComponent {
   @Input() message: string = '';
   @Input() isError: boolean = false;
 
+  constructor(private cdr: ChangeDetectorRef){}
   ngOnChanges(changes: SimpleChanges) {
+    this.message = this.message.split('%')[0]
     if (changes['message'] && this.message) {
-      // Borrar mensaje después de duration
-      setTimeout(() => this.message = '', 3000);
+      setTimeout(() => {
+        this.message = '';
+        this.cdr.detectChanges();
+      }, 3000);
+      
     }
   }  
 }

@@ -8,6 +8,7 @@ import { PurchaseComponent } from './purchase/purchase.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login.component';
 import { ResetPasswordComponent } from './auth/reset-password.component';
+import { InicioComponent } from './home/inicio.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent,
@@ -20,7 +21,8 @@ export const routes: Routes = [
         { path: 'gestion',component:ManagementComponent, canActivate: [AuthGuard]},
         { path: 'compras',component:PurchaseComponent, canActivate: [AuthGuard]},
         { path: 'login', component: LoginComponent },
-        { path: 'reset-password', component: ResetPasswordComponent }
+        { path: 'reset-password', component: ResetPasswordComponent },
+        { path: '',component:InicioComponent}
       ]
      },
 ];

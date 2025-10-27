@@ -59,7 +59,7 @@ export class ResetPasswordComponent {
 
     validResponse(response: ResponseLogin) {
         this.isError = response.error ? true : false;
-        this.errorMessage = response.message ? response.message : ''
+        this.errorMessage = response.message ? response.message + ' % ' + new Date().toUTCString() : ''
 
     }
 }

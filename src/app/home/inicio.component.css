@@ -7,12 +7,6 @@
   width: 500px;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: stretch;
-}
 .btn {
     font-size: 1rem;
 }

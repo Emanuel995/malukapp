@@ -98,24 +98,27 @@ export class StockDetailComponent {
     this.addProduct();
     switch (this.mode) {
       case 'INS':
+
         if (this.sale) {
-          console.log(this.sale);
-          
-          this.saleService.createSale(this.sale).subscribe(
-            resp => {
-              this.isError = resp.isError;
-              this.message = resp.message;
-              console.log(resp);
-              if (this.isError == false) {
-                this.modeChange.emit('LIST');
-              }
-          });
-          
+          if (this.sale?.items && this.sale?.items.length > 0) {
+            this.saleService.createSale(this.sale).subscribe(
+              resp => {
+                this.isError = resp.isError;
+                this.message = resp.message + ' % ' + new Date().toUTCString();
+                console.log(resp);
+                if (this.isError == false) {
+                  this.modeChange.emit('LIST');
+                }
+              });
+          }else{
+            this.isError = true;
+            this.message = 'Debe ingresar un producto para realizar el ajuste de stock' + ' % ' + new Date().toUTCString();            
+          }
         }
         break;
     }
     this.isErrorChange.emit(this.isError);
-    this.messageChange.emit(this.message);
+    this.messageChange.emit(this.message + ' % ' + new Date().toUTCString());
   }
 
   back() {
@@ -135,11 +138,11 @@ export class StockDetailComponent {
   addProduct() {
     if (this.newStock === 0) {
       this.isError = true;
-      this.message = 'El ajuste debe ser distinto de 0';
+      this.message = 'El ajuste debe ser distinto de 0' + ' % ' + new Date().toUTCString();
     }
     if (this.newProductStock < 0) {
       this.isError = true;
-      this.message = 'El resultado del ajuste debe ser mayor  a 0';
+      this.message = 'El resultado del ajuste debe ser mayor  a 0' + ' % ' + new Date().toUTCString();
     }
     if (this.newProduct && this.isError === false) {
       this.item = {
