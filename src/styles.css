@@ -11,6 +11,11 @@
   --accent-green: oklch(72.435% 0.18975 135.701);
   --bg-card-login-color: rgba(255, 255, 255, 0.75);
 }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 body {
   font-family: 'Montserrat', sans-serif !important;
   padding: 0rem;

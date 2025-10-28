@@ -5,23 +5,80 @@
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   border: 1px solid oklch(0.69 0 0);
   width: 500px;
+  margin: 0;
 }
 
-.btn {
-    font-size: 1rem;
-}
-.header {
-  padding: 1.5rem;
-  justify-content:space-around;
-}
 .container {
   margin: 0;
   padding: 0;
-  width: 100%;
   height: 100%;
-  background-image: url('/background_login.jpg') !important;
-  background-size: cover;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  background-size: cover;
+  background-image: url('/background_login.jpg') !important;
+}
+.content {
+  flex: 7;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+
+}
+.footer{
+  flex: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.horarios{
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+.titulo{
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ margin: 0;
+ padding: 0;
+}
+
+.h4{
+ font-size: 1.2rem;
+ margin-left: 0.5rem;
+
+}
+.p{
+  font-size: 1rem;
+  margin-block-start: 0.5rem !important;
+  margin-block-end: 0 !important;
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+}
+
+.direccion{
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.mapa{
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }
