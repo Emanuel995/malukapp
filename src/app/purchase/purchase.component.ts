@@ -154,7 +154,7 @@ export class PurchaseComponent {
     this.saleSelected = sale;
     this.newState = newState;
     this.showModal = true;
-    this.messageModal = '¿Está seguro que desea cambiar el estado de la venta?'
+    this.messageModal = '¿Está seguro que desea cambiar el estado de la compra?'
   }
   confirmModal(){   
     if (this.saleSelected){

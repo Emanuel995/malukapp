@@ -48,9 +48,9 @@ export class PaymentComponent {
  setSelectPayment(payment: Payment){
     this.paymentSelected = payment;
     if (this.paymentSelected.is_deleted == false){
-      this.messageModal = '¿Está seguro de inactivar la categoria '+ this.paymentSelected.name + '?'
+      this.messageModal = '¿Está seguro de inactivar la forma de pago '+ this.paymentSelected.name + '?'
     }else{
-      this.messageModal = '¿Está seguro de activar la categoria '+ this.paymentSelected.name + '?'
+      this.messageModal = '¿Está seguro de activar la forma de pago '+ this.paymentSelected.name + '?'
     }
     this.showModal = true;
   }
