@@ -53,9 +53,9 @@
       </div>
 
       <div class="form-actions">
-        <a class="btn btn-outline-secondary" routerLink="/productos">
+        <button class="btn btn-outline-secondary" (click)="volver()">
           Volver
-        </a>
+        </button>
         <button *ngIf="editable" type="submit" class="btn btn-success" [disabled]="mode=='DSP'">
           Confirmar
         </button>

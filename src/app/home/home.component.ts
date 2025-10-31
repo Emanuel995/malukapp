@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  isNavBarOpen:boolean = false;
   isLogin:boolean = false;
   constructor(private authService: AuthService,
               private router: Router ){}
@@ -24,5 +25,14 @@ export class HomeComponent {
   logout(){
     this.authService.logout();
     this.router.navigate(['/login']);
+    this.closeNavbar();
   }
+  toggleNavbar(){
+    this.isNavBarOpen = !this.isNavBarOpen
+  }
+
+  closeNavbar() {
+    this.isNavBarOpen = false;
+  }
+
 }

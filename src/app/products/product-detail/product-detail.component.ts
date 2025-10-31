@@ -73,7 +73,9 @@ export class ProductDetailComponent {
       }
     } 
   }
-
+  volver(){
+    this.router.navigate(['/productos']);
+  }
   save(){
     this.isError = false;
     this.message = '';

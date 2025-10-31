@@ -18,7 +18,7 @@
           <input class="form-control" type="time" [(ngModel)]="time" name="time" [readonly]="!editable">
         </div>
       </div>
-      <table class="modern-table">
+      <table *ngIf="false" class="modern-table">
         <thead class="table-header">
           <tr class="">
             <th style="display: none;">#</th>
@@ -53,8 +53,45 @@
         </tbody>
       </table>
 
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Producto</label>
+          <a><i class="bi bi-trash3" (click)="removeProduct()"></i></a>
+          <input class="form-control " name="newProduct" type="text" [(ngModel)]="filter" placeholder="Buscar..."
+            (input)="onSearch()">
+          <div class="form-group">
+            <ul class="ul-suggest " *ngIf="suggestions.length>0">
+              <li class="li-suggest " *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
+                {{ suggestion.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Stock Actual</label>
+          <input class="form-control" name="stock" type="text" min="0" max="999" [ngModel]="this.newProduct?.stock"
+            readonly>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Ajuste</label>
+          <input class="form-control" name="fixStock" type="number" min="-999" max="999" [(ngModel)]="newStock"
+            (ngModelChange)="onQuantitychange()">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Stock Nuevo</label>
+          <input class="form-control" name="newStock" type="number" min="-999" max="999"
+                [(ngModel)]="newProductStock" readonly>
+        </div>
+      </div>
+
+
+
       <div class="form-actions">
-        <a class="btn btn-outline-secondary" (click)="back()">Volver</a>
+        <button class="btn btn-outline-secondary" (click)="back()">Volver</button>
         <button *ngIf="editable" type="submit" class="btn btn-outline-success" [disabled]="mode=='DSP'"><i
             class="bi bi-floppy"></i>&nbsp; Confirmar</button>
       </div>

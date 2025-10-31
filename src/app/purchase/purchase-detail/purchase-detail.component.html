@@ -58,7 +58,7 @@
             <td style="width: 5%; display: none;">{{item.product_id}}</td>
             <td class="product-name">{{item.product?.name}}</td>
             <td class="cant-cell"><input class="form-control" type="number" name="quatity-{{item.product_id}}"
-                [(ngModel)]="item.quantity" (ngModelChange)="onQuantitychange(item)" min="0" [disabled]="!editable" ></td>
+                [(ngModel)]="item.quantity" (ngModelChange)="onQuantitychange(item)" min="0" max="9999" [disabled]="!editable" ></td>
             <td class="price-cell">{{item.unit_price | currency:'$':'symbol':'1.2-2'}}</td>
             <td class="price-cell">{{item.subtotal | currency:'$':'symbol':'1.2-2'}}</td>
           </tr>
@@ -79,11 +79,11 @@
           </div>
           <div class="form-group-col">
             <label class="form-label">Precio </label>
-            <input class="form-control" name="price" type="text" min="0" max="999999999" [(ngModel)]="newProductPrice">
+            <input class="form-control" name="price" type="text" min="0" max="9999" [(ngModel)]="newProductPrice">
           </div>
           <div class="form-group-col">
             <label class="form-label">Cantidad </label>
-            <input class="form-control" name="quantity" type="number" min="0" max="999999" [(ngModel)]="newQuantity">
+            <input class="form-control" name="quantity" type="number" min="0" max="999" [(ngModel)]="newQuantity">
           </div>
           <div class="form-group-col">
             <label class="form-label"> </label>
@@ -102,7 +102,7 @@
       </div>
 
       <div class="form-actions">
-        <a class="btn btn-outline-secondary" (click)="back()">Volver</a>
+        <button class="btn btn-outline-secondary" (click)="back()">Volver</button>
         <div *ngIf="editable">
           <button type="submit" class="btn btn-outline-success" [disabled]="mode=='DSP'"><i
             class="bi bi-floppy"></i>&nbsp; Confirmar</button>

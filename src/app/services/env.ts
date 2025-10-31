@@ -1,4 +1,4 @@
 export const env = {
-    api_url : "maluka-api.vercel.app",
-    front_url:"https://malukapp.vercel.app"
+    api_url : "http://localhost:3000",
+    front_url:"http://localhost:4200"
 }
