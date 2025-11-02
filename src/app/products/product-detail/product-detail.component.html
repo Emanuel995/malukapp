@@ -1,5 +1,5 @@
 <!-- Formulario moderno sin Bootstrap -->
-<div *ngIf="product; else notFound" class="detail-container">
+<div *ngIf="product" class="detail-container">
   <app-alert [isError]="isError" [message]="message"></app-alert>
   <div class="card">
     <h3 class="form-title">{{ mode=='INS' ? 'Crear nuevo producto' : mode=='DSP' ? 'Detalle del Producto' : 'Editar Producto'}}</h3>
@@ -53,7 +53,7 @@
       </div>
 
       <div class="form-actions">
-        <button class="btn btn-outline-secondary" (click)="volver()">
+        <button class="btn btn-outline-secondary" type="button" (click)="volver()">
           Volver
         </button>
         <button *ngIf="editable" type="submit" class="btn btn-success" [disabled]="mode=='DSP'">
@@ -63,11 +63,3 @@
     </form>
   </div>
 </div>
-
-<ng-template #notFound>
-  <div class="error-message">
-    <h3>⚠️ Producto no encontrado</h3>
-    <p>El producto que buscas no existe o ha sido eliminado.</p>
-    <a class="btn btn-primary" routerLink="/productos">Volver a productos</a>
-  </div>
-</ng-template>

@@ -8,7 +8,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { LoadingService } from './services/loading.service';
 import { loadingInterceptor } from './utils/loading/loading.interceptor';
 import { authInterceptor  } from './auth/auth.interceptor';
-import { loggingInterceptor  } from './utils/loggin/loggin.interceptor';
 
 registerLocaleData(es);
 
@@ -17,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([authInterceptor,loadingInterceptor, /*loggingInterceptor*/  ])
+      withInterceptors([authInterceptor,loadingInterceptor])
     ),
     provideAnimations(),
     {provide:LOCALE_ID,useValue:'es'},

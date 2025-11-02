@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule  } from '@angular/router';
 import { Product, ProductFilter, ProductService } from '../services/product.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Category, CategoryService } from '../services/category.service';
 import { ModalComponent } from '../utils/modal/modal.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -14,7 +15,7 @@ import { ModalComponent } from '../utils/modal/modal.component';
 })
 
 
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
   products: Product[] = [];
   filterProducts: Product[] = [];
   filterName: string = '';
@@ -25,8 +26,12 @@ export class ProductsComponent implements OnInit {
   showModal = false;
   selectedProduct: Product | undefined;
   messageModal:string='';
+  mode:string='LIST';
 
-  constructor(private productService: ProductService, private categoryService: CategoryService) { }
+  constructor(
+    private productService: ProductService, 
+    private categoryService: CategoryService,
+  ) { }
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(
@@ -51,7 +56,6 @@ export class ProductsComponent implements OnInit {
     if (this.selectedStateId !== 'all') {
       let isDeleted: boolean;
       isDeleted = this.selectedStateId === 'true' ? false : true;
-      console.log(isDeleted);
       this.filterProducts = this.filterProducts.filter(p => p.is_deleted === isDeleted)
     }
     if (filter.length > 0) {
@@ -102,5 +106,6 @@ export class ProductsComponent implements OnInit {
   cancelModal() {
     this.showModal = false;
     this.messageModal ='';
+
   }
 }

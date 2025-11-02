@@ -110,9 +110,9 @@ export class StockDetailComponent {
                   this.modeChange.emit('LIST');
                 }
               });
-          }else{
+          } else {
             this.isError = true;
-            this.message = 'Debe ingresar un producto para realizar el ajuste de stock' + ' % ' + new Date().toUTCString();            
+            this.message = 'Debe ingresar un producto para realizar el ajuste de stock' + ' % ' + new Date().toUTCString();
           }
         }
         break;
@@ -162,8 +162,12 @@ export class StockDetailComponent {
     }
   }
   onQuantitychange() {
-    if (this.newProduct) {
-      this.newProductStock = this.newProduct?.stock + this.newStock
+    if (isNaN(this.newStock)) {
+      this.newStock = 0;
+    } else {
+      if (this.newProduct) {
+        this.newProductStock = this.newProduct?.stock + this.newStock
+      }
     }
   }
 

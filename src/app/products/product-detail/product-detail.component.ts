@@ -1,5 +1,5 @@
 // src/app/product-detail/product-detail.component.ts
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductService, Product, ProductFilter } from '../../services/product.service';
@@ -74,7 +74,7 @@ export class ProductDetailComponent {
     } 
   }
   volver(){
-    this.router.navigate(['/productos']);
+    this.router.navigateByUrl('/productos');
   }
   save(){
     this.isError = false;
@@ -85,7 +85,6 @@ export class ProductDetailComponent {
           resp =>{
             this.isError = resp.isError;
             this.message = resp.message;
-            console.log(resp);
             if (this.isError == false){
               this.router.navigate(['/productos'])
             }
@@ -99,7 +98,6 @@ export class ProductDetailComponent {
             resp =>{
               this.isError = resp.isError;
               this.message = resp.message;
-              console.log(resp);
               if (this.isError == false){
                 this.router.navigate(['/productos'])
               }

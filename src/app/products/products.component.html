@@ -3,33 +3,33 @@
   <div class="header">
     <h2 class="title">Productos</h2>
     <button class="btn btn-outline-success" [routerLink]="['/productos','new']">
-      <i class="bi bi-plus-circle"></i> 
+      <i class="bi bi-plus-circle"></i>
     </button>
   </div>
 
   <form class="search-form" (ngSubmit)="search()">
     <div class="search-controls">
-        <div class="form-group">
-          <label class="form-label" for="categories"> Categorias</label>
-          <select class="search-select" [(ngModel)]="selectedCategoryId" name="categories">
-            <option value="">Todos</option>
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="categories"> Producto</label>
-          <input type="text" class="search-input" placeholder="Buscar productos..." 
-            [(ngModel)]="filterName" name="filterProducts">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="categories"> Estado</label>
-          <select class="search-select" [(ngModel)]="selectedStateId" name="states">
-            <option value="all">Todos</option>
-            <option value="true">Activos</option>
-            <option value="false">Inactivos</option>
-          </select>
-        </div>
-        
+      <div class="form-group">
+        <label class="form-label" for="categories"> Categorias</label>
+        <select class="search-select" [(ngModel)]="selectedCategoryId" name="categories">
+          <option value="">Todos</option>
+          <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="categories"> Producto</label>
+        <input type="text" class="search-input" placeholder="Buscar productos..." [(ngModel)]="filterName"
+          name="filterProducts">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="categories"> Estado</label>
+        <select class="search-select" [(ngModel)]="selectedStateId" name="states">
+          <option value="all">Todos</option>
+          <option value="true">Activos</option>
+          <option value="false">Inactivos</option>
+        </select>
+      </div>
+
     </div>
     <div>
       <button class="btn btn-search btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
@@ -47,32 +47,40 @@
           <th>Precio</th>
           <th>Stock</th>
           <th>Medida</th>
-          <th>Categoria</th>
+          <th class="hideOnMobile">Categoria</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let product of filterProducts" class="table-row">
           <td class="actions-cell">
-            <button class="action-btn action-btn-view" [routerLink]="['/productos','view', product.id]"><i class="bi bi-eye"></i></button> 
-            <button class="action-btn action-btn-edit" [routerLink]="['/productos','edit', product.id]"><i class="bi bi-pencil-square"></i></button>
-            <button *ngIf="product.is_deleted" class="action-btn action-btn-play" (click)="setSelectProduct(product)" ><i class="bi bi-play-fill"></i></button>
-            <button *ngIf="!product.is_deleted" class="action-btn action-btn-stop" (click)="setSelectProduct(product)" ><i class="bi bi-stop-circle"></i></button>  
+            <div>
+              <button class="action-btn action-btn-view" [routerLink]="['/productos','view', product.id]"><i
+                  class="bi bi-eye"></i></button>
+            </div>
+            <div>
+              <button class="action-btn action-btn-edit" [routerLink]="['/productos','edit', product.id]"><i
+                  class="bi bi-pencil-square"></i></button>
+            </div>
+            <div>
+              <button *ngIf="product.is_deleted" class="action-btn action-btn-play"
+                (click)="setSelectProduct(product)"><i class="bi bi-play-fill"></i></button>
+            </div>
+            <div>
+              <button *ngIf="!product.is_deleted" class="action-btn action-btn-stop"
+                (click)="setSelectProduct(product)"><i class="bi bi-stop-circle"></i></button>
+            </div>
           </td>
           <td>{{ product.id }}</td>
           <td [class]="product.is_deleted? 'product-name is-deleted' :'product-name' ">{{ product.name }}</td>
           <td class="price-cell">{{ product.price |currency:'$':'symbol':'1.2-2'}}</td>
           <td class="stock-cell">{{ product.stock }}</td>
           <td>{{ product.unit_name }}</td>
-          <td>{{ product.category_name }}</td>
+          <td class="hideOnMobile">{{ product.category_name }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<app-modal
-  [show]="showModal"
-  [message]="messageModal"
-  (confirm)="confirmModal()"
-  (cancel)="cancelModal()">
+<app-modal [show]="showModal" [message]="messageModal" (confirm)="confirmModal()" (cancel)="cancelModal()">
 </app-modal>

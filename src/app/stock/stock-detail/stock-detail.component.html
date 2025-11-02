@@ -43,10 +43,9 @@
                 </ul>
               </div>
             </td>
-            <td class="cant-cell"> <input class="form-control" name="stock" type="text" min="0" max="999"
+            <td class="cant-cell"> <input class="form-control" name="stock" type="text" min="-999" max="999"
                 [ngModel]="this.newProduct?.stock" readonly></td>
-            <td class="price-cell"> <input class="form-control" name="fixStock" type="number" min="-999" max="999"
-                [(ngModel)]="newStock" (ngModelChange)="onQuantitychange()"></td>
+            <td class="price-cell"> <input class="form-control" name="fixStock" type="text" [(ngModel)]="newStock" (ngModelChange)="onQuantitychange()"></td>
             <td class="price-cell"> <input class="form-control" name="newStock" type="number" min="-999" max="999"
                 [(ngModel)]="newProductStock" readonly></td>
           </tr>
