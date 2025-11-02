@@ -31,6 +31,7 @@ export class SaleDetailComponent {
   total: number = 0;
   newQuantity: number = 1;
   newProductPrice: number = 0;
+  newtotal:number = 0;
   payments: Payment[] | undefined;
   states = StatesPayment;
   stateSelect : StateOption[] = [];
@@ -180,5 +181,12 @@ export class SaleDetailComponent {
   removeProduct(item: Items) {
     this.items = this.items.filter(i => i.product_id !== item.product_id)
     this.setTotalSale();
+  }
+  onQuantity(){
+    this.newtotal = this.newProductPrice * this.newQuantity
+  }
+  onTotal(){
+    this.newQuantity = this.newtotal / this.newProductPrice;
+    this.newQuantity = Number(this.newQuantity.toFixed(2));
   }
 }

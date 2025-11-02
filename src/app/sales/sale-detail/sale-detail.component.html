@@ -84,11 +84,15 @@
           </div>
           <div class="form-group-col">
             <label class="form-label">Precio </label>
-            <input class="form-control" name="price" type="text" min="0" max="999999999" [(ngModel)]="newProductPrice">
+            <input class="form-control" name="price" type="number" min="0" max="9999" [(ngModel)]="newProductPrice" readonly>
           </div>
           <div class="form-group-col">
             <label class="form-label">Cantidad </label>
-            <input class="form-control" name="quantity" type="number" min="0" max="999999" [(ngModel)]="newQuantity">
+            <input class="form-control" name="quantity" type="number" min="0" max="9999" [(ngModel)]="newQuantity" (change)="onQuantity()">
+          </div>
+          <div class="form-group-col">
+            <label class="form-label">Total </label>
+            <input class="form-control" name="total" type="number" min="0" max="9999" [(ngModel)]="newtotal" (change)="onTotal()">
           </div>
           <div class="form-group-col">
             <label class="form-label"> </label>
