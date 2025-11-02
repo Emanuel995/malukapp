@@ -136,7 +136,8 @@ export class StockDetailComponent {
 
   }
   addProduct() {
-    if (this.newStock === 0) {
+    this.newStock = Number(this.newStock);
+    if (this.newStock === 0 && !isNaN(this.newStock)) {
       this.isError = true;
       this.message = 'El ajuste debe ser distinto de 0' + ' % ' + new Date().toUTCString();
     }
@@ -162,11 +163,13 @@ export class StockDetailComponent {
     }
   }
   onQuantitychange() {
-    if (isNaN(this.newStock)) {
+    if (isNaN(this.newStock) && String(this.newStock) !== '-') {
+      console.log(this.newStock);
+      
       this.newStock = 0;
     } else {
       if (this.newProduct) {
-        this.newProductStock = this.newProduct?.stock + this.newStock
+        this.newProductStock = this.newProduct?.stock + (isNaN(this.newStock) ? 0 : Number(this.newStock))
       }
     }
   }

@@ -18,40 +18,6 @@
           <input class="form-control" type="time" [(ngModel)]="time" name="time" [readonly]="!editable">
         </div>
       </div>
-      <table *ngIf="false" class="modern-table">
-        <thead class="table-header">
-          <tr class="">
-            <th style="display: none;">#</th>
-            <th></th>
-            <th>Producto</th>
-            <th class="price-header">Stock Actual</th>
-            <th class="price-header">Ajuste</th>
-            <th class="price-header">Stock Nuevo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="table-row">
-            <td><a><i class="bi bi-trash3" (click)="removeProduct()"></i></a></td>
-            <td class="product-name">
-              <input class="form-control input-product" name="newProduct" type="text" [(ngModel)]="filter"
-                placeholder="Buscar..." (input)="onSearch()">
-              <div class="form-group-col input-product">
-                <ul class="ul-suggest " *ngIf="suggestions.length>0">
-                  <li class="li-suggest " *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
-                    {{ suggestion.name }}
-                  </li>
-                </ul>
-              </div>
-            </td>
-            <td class="cant-cell"> <input class="form-control" name="stock" type="text" min="-999" max="999"
-                [ngModel]="this.newProduct?.stock" readonly></td>
-            <td class="price-cell"> <input class="form-control" name="fixStock" type="text" [(ngModel)]="newStock" (ngModelChange)="onQuantitychange()"></td>
-            <td class="price-cell"> <input class="form-control" name="newStock" type="number" min="-999" max="999"
-                [(ngModel)]="newProductStock" readonly></td>
-          </tr>
-        </tbody>
-      </table>
-
 
       <div class="form-row">
         <div class="form-group">
@@ -76,7 +42,7 @@
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Ajuste</label>
-          <input class="form-control" name="fixStock" type="number" min="-999" max="999" [(ngModel)]="newStock"
+          <input class="form-control" name="fixStock" type="text"  [(ngModel)]="newStock"
             (ngModelChange)="onQuantitychange()">
         </div>
 

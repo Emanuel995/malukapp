@@ -48,7 +48,7 @@
           <th class="actions-column">Acciones</th>
           <th>#</th>
           <th>Fecha</th>
-          <th>Forma de Pago</th>
+          <th class="hideOnMobile">Forma de Pago</th>
           <th>Estado</th>
           <th style="text-align: right;">Total</th>
         </tr>
@@ -63,7 +63,7 @@
           </td>
           <td>{{ sale.id }}</td>
           <td class="product-name">{{ getDateFormatString(sale.date) +' '+ getTimeFormatString(sale.date) }}</td>
-          <td>{{ sale.payment_name }}</td>
+          <td class="hideOnMobile">{{ sale.payment_name }}</td>
           <td>{{ sale.state_name }}</td>
           <td class="price-cell">{{ sale.total|currency:'$':'symbol':'1.2-2' }}</td>
         </tr>
